@@ -1,0 +1,1771 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Peta Belajar & Kisi-Kisi Interaktif PSAS Informatika Kelas IX — SMPN 4 Ciamis</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#f0f9ff',
+              100: '#e0f2fe',
+              500: '#0284c7',
+              600: '#0369a1',
+              700: '#075985',
+              800: '#0c4a6e',
+              900: '#082f49',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f1f5f9;
+      color: #0f172a;
+    }
+    /* Custom scrollbar ringan */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #e2e8f0;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #94a3b8;
+      border-radius: 9999px;
+    }
+    @keyframes popIn {
+      0% { transform: scale(0.95); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .animate-pop {
+      animation: popIn 0.22s ease-out forwards;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-teal-200 selection:text-teal-900">
+
+  <!-- HEADER UTAMA -->
+  <header class="bg-gradient-to-r from-sky-900 via-teal-800 to-cyan-800 text-white shadow-lg sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+        <div class="flex items-start sm:items-center gap-3">
+          <div class="w-12 h-12 rounded-2xl bg-white/15 backdrop-blur-sm border border-white/25 flex items-center justify-center shrink-0 shadow-inner">
+            <i class="fa-solid fa-laptop-code text-2xl text-amber-300"></i>
+          </div>
+          <div>
+            <div class="flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-wider text-teal-200 mb-0.5">
+              <span class="bg-white/15 px-2.5 py-0.5 rounded-full">SMP Negeri 4 Ciamis</span>
+              <span>•</span>
+              <span>TP 2026/2027 • Semester Ganjil</span>
+            </div>
+            <h1 class="text-lg sm:text-xl lg:text-2xl font-extrabold tracking-tight leading-snug">
+              Peta Belajar & Kisi-Kisi Interaktif PSAS Informatika Kelas IX
+            </h1>
+          </div>
+        </div>
+
+        <!-- Ringkasan Cepat & Tombol Reset -->
+        <div class="flex items-center justify-between sm:justify-end gap-3 bg-black/20 px-3.5 py-2 rounded-xl border border-white/10">
+          <div class="text-xs sm:text-right">
+            <p class="text-teal-200 font-medium">Kesiapan Belajar Saya</p>
+            <p class="text-base sm:text-lg font-extrabold text-amber-300" id="headerProgressText">0% (0/40 Indikator)</p>
+          </div>
+          <button onclick="openResetModal()" title="Atur Ulang Progres Belajar" class="p-2.5 rounded-xl bg-white/10 hover:bg-rose-500/80 text-white transition text-xs font-semibold flex items-center gap-1.5">
+            <i class="fa-solid fa-rotate-left"></i>
+            <span class="hidden sm:inline">Reset</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- NAVIGASI 4 TAB UTAMA -->
+      <nav class="mt-4 flex overflow-x-auto gap-2 pb-1 no-scrollbar" aria-label="Navigasi Utama">
+        <button onclick="switchTab('tab-kisikisi')" id="btn-tab-kisikisi" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-sm whitespace-nowrap transition shadow-sm bg-white text-sky-900">
+          <i class="fa-solid fa-list-check text-teal-600"></i>
+          <span>1. Peta Kisi-Kisi (40 Indikator)</span>
+        </button>
+        <button onclick="switchTab('tab-lab')" id="btn-tab-lab" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-sm whitespace-nowrap transition bg-white/10 text-white hover:bg-white/20">
+          <i class="fa-solid fa-flask-vial text-amber-300"></i>
+          <span>2. Lab Simulasi Interaktif</span>
+        </button>
+        <button onclick="switchTab('tab-kuis')" id="btn-tab-kuis" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-sm whitespace-nowrap transition bg-white/10 text-white hover:bg-white/20">
+          <i class="fa-solid fa-pen-to-square text-emerald-300"></i>
+          <span>3. Kuis Latihan (10 Soal)</span>
+        </button>
+        <button onclick="switchTab('tab-rangkuman')" id="btn-tab-rangkuman" class="tab-btn flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-sm whitespace-nowrap transition bg-white/10 text-white hover:bg-white/20">
+          <i class="fa-solid fa-bolt text-yellow-300"></i>
+          <span>4. Rangkuman Kilat & Strategi</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- KONTEN UTAMA -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+    <!-- =================================================================== -->
+    <!-- TAB 1: PETA KISI-KISI (10 TOPIK & 40 INDIKATOR)                     -->
+    <!-- =================================================================== -->
+    <section id="tab-kisikisi" class="tab-content space-y-6 animate-pop">
+
+      <!-- Kartu Ringkasan Informasi Ujian & Progress Bar -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+        <!-- Info Spesifikasi PSAS -->
+        <div class="lg:col-span-7 bg-white rounded-2xl p-5 shadow-sm border border-slate-200 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <h2 class="text-base sm:text-lg font-extrabold text-slate-800 flex items-center gap-2">
+                <i class="fa-solid fa-circle-info text-sky-600"></i>
+                Spesifikasi Ujian PSAS Informatika IX
+              </h2>
+              <span class="text-xs font-bold bg-sky-100 text-sky-800 px-3 py-1 rounded-full">Paper Based</span>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
+              <div class="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                <p class="text-xs text-slate-500 font-medium">Jumlah Soal</p>
+                <p class="text-lg font-extrabold text-slate-800 mt-0.5">40 PG</p>
+              </div>
+              <div class="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                <p class="text-xs text-slate-500 font-medium">Alokasi Waktu</p>
+                <p class="text-lg font-extrabold text-slate-800 mt-0.5">60 Menit</p>
+              </div>
+              <div class="bg-emerald-50 p-3 rounded-xl border border-emerald-200">
+                <p class="text-xs text-emerald-700 font-semibold">Level 1 (C1–C2)</p>
+                <p class="text-lg font-extrabold text-emerald-800 mt-0.5">8 Soal <span class="text-xs font-normal">(20%)</span></p>
+              </div>
+              <div class="bg-amber-50 p-3 rounded-xl border border-amber-200">
+                <p class="text-xs text-amber-700 font-semibold">Level 2 (C3)</p>
+                <p class="text-lg font-extrabold text-amber-800 mt-0.5">20 Soal <span class="text-xs font-normal">(50%)</span></p>
+              </div>
+            </div>
+          </div>
+          <div class="mt-3 bg-rose-50 border border-rose-200 rounded-xl px-4 py-2.5 flex flex-wrap items-center justify-between gap-2">
+            <span class="text-xs sm:text-sm font-bold text-rose-800 flex items-center gap-2">
+              <i class="fa-solid fa-brain"></i>
+              Level 3 HOTS (C4–C6): Penalaran & Evaluasi
+            </span>
+            <span class="text-sm font-extrabold text-rose-900 bg-rose-200/70 px-3 py-0.5 rounded-lg">12 Soal (30%)</span>
+          </div>
+        </div>
+
+        <!-- Progress Bar Kesiapan Belajar -->
+        <div class="lg:col-span-5 bg-gradient-to-br from-sky-900 to-teal-800 text-white rounded-2xl p-5 shadow-md flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between">
+              <h2 class="text-base sm:text-lg font-extrabold flex items-center gap-2">
+                <i class="fa-solid fa-chart-line text-amber-300"></i>
+                Kesiapan Belajar Saya
+              </h2>
+              <span id="mainProgressPercent" class="text-2xl font-black text-amber-300">0%</span>
+            </div>
+            <p class="text-xs sm:text-sm text-sky-100 mt-1">
+              Tandai setiap indikator kisi-kisi dengan tombol <strong>"Sudah Paham"</strong> setelah mempelajari bedah konsepnya.
+            </p>
+          </div>
+
+          <div class="my-4">
+            <div class="w-full h-4 bg-black/30 rounded-full overflow-hidden p-0.5 border border-white/15">
+              <div id="mainProgressBar" class="h-full bg-gradient-to-r from-amber-400 to-emerald-400 rounded-full transition-all duration-500" style="width: 0%"></div>
+            </div>
+            <div class="flex justify-between text-xs text-teal-200 mt-2 font-medium">
+              <span id="mainProgressCount">0 dari 40 indikator dikuasai</span>
+              <span id="progressMotivation">Ayo mulai belajar!</span>
+            </div>
+          </div>
+
+          <div class="flex gap-2">
+            <button onclick="expandAllTips(true)" class="flex-1 bg-white/15 hover:bg-white/25 text-white text-xs font-semibold py-2 px-3 rounded-xl transition">
+              <i class="fa-solid fa-angles-down mr-1"></i> Buka Semua Tips
+            </button>
+            <button onclick="expandAllTips(false)" class="flex-1 bg-white/15 hover:bg-white/25 text-white text-xs font-semibold py-2 px-3 rounded-xl transition">
+              <i class="fa-solid fa-angles-up mr-1"></i> Tutup Semua Tips
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bar Filter & Pencarian -->
+      <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-200 space-y-3">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-3">
+          <!-- Filter Topik -->
+          <div class="md:col-span-5">
+            <label for="filterTopic" class="block text-xs font-bold text-slate-600 mb-1">Filter Topik Materi (10 Topik)</label>
+            <select id="filterTopic" onchange="renderIndicators()" class="w-full rounded-xl border border-slate-300 bg-slate-50 px-3.5 py-2.5 text-sm font-medium text-slate-800 focus:border-teal-600 focus:ring-2 focus:ring-teal-200 outline-none">
+              <option value="all">Semua Topik (10 Topik — 40 Indikator)</option>
+              <option value="1">Topik 1: Konsep Dasar Berpikir Komputasional (#1–#5)</option>
+              <option value="2">Topik 2: Struktur Data Tree dan Graph (#6–#10)</option>
+              <option value="3">Topik 3: Konsep Dasar AI: Rekomendasi (#11–#14)</option>
+              <option value="4">Topik 4: AI Seperti Manusia & Etika KA (#15–#17)</option>
+              <option value="5">Topik 5: Blockly & AI Rasional (#18–#20)</option>
+              <option value="6">Topik 6: Integrasi Aplikasi Perkantoran (#21–#24)</option>
+              <option value="7">Topik 7: Jenis Grafik yang Sesuai (#25–#28)</option>
+              <option value="8">Topik 8: Blog dan Vlog (#29–#32)</option>
+              <option value="9">Topik 9: Pemrograman Visual Scratch & Blockly (#33–#36)</option>
+              <option value="10">Topik 10: Stage, Sprite & Blok Kode (#37–#40)</option>
+            </select>
+          </div>
+
+          <!-- Filter Level Kognitif -->
+          <div class="md:col-span-4">
+            <label class="block text-xs font-bold text-slate-600 mb-1">Filter Level Kognitif</label>
+            <div class="grid grid-cols-4 gap-1.5">
+              <button onclick="setLevelFilter('all')" id="lvl-all" class="lvl-btn py-2 px-2 rounded-xl text-xs font-bold bg-teal-700 text-white transition">Semua</button>
+              <button onclick="setLevelFilter('1')" id="lvl-1" class="lvl-btn py-2 px-2 rounded-xl text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200 transition">Lv 1</button>
+              <button onclick="setLevelFilter('2')" id="lvl-2" class="lvl-btn py-2 px-2 rounded-xl text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200 transition">Lv 2</button>
+              <button onclick="setLevelFilter('3')" id="lvl-3" class="lvl-btn py-2 px-2 rounded-xl text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200 transition">Lv 3</button>
+            </div>
+          </div>
+
+          <!-- Pencarian Kata Kunci -->
+          <div class="md:col-span-3">
+            <label for="searchInput" class="block text-xs font-bold text-slate-600 mb-1">Cari Kata Kunci</label>
+            <div class="relative">
+              <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-400 text-sm"></i>
+              <input type="text" id="searchInput" oninput="renderIndicators()" placeholder="Contoh: XOR, tree, vlog..." class="w-full rounded-xl border border-slate-300 bg-slate-50 pl-9 pr-3 py-2 text-sm text-slate-800 focus:border-teal-600 focus:ring-2 focus:ring-teal-200 outline-none">
+            </div>
+          </div>
+        </div>
+        <div class="flex flex-wrap items-center justify-between text-xs text-slate-500 pt-1 border-t border-slate-100">
+          <span id="filterResultInfo">Menampilkan 40 indikator soal</span>
+          <label class="inline-flex items-center gap-2 cursor-pointer font-semibold text-slate-700">
+            <input type="checkbox" id="filterUnmastered" onchange="renderIndicators()" class="rounded text-teal-600 focus:ring-teal-500 w-4 h-4">
+            <span>Hanya tampilkan yang belum dipahami</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Kontainer Daftar Indikator -->
+      <div id="indicatorsContainer" class="space-y-6"></div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- TAB 2: LAB SIMULASI INTERAKTIF (4 MINI-LAB VISUAL)                  -->
+    <!-- =================================================================== -->
+    <section id="tab-lab" class="tab-content hidden space-y-6 animate-pop">
+      <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200">
+        <h2 class="text-lg sm:text-xl font-extrabold text-slate-800 flex items-center gap-2">
+          <i class="fa-solid fa-flask-vial text-teal-600"></i>
+          Lab Simulasi Interaktif Konsep PSAS
+        </h2>
+        <p class="text-sm text-slate-600 mt-1">
+          Eksplorasi langsung konsep yang paling sering keluar di soal HOTS PSAS melalui 4 simulasi visual interaktif di bawah ini.
+        </p>
+
+        <!-- Sub-Navigasi 4 Mini Lab -->
+        <div class="mt-4 grid grid-cols-2 lg:grid-cols-4 gap-2.5">
+          <button onclick="switchLab('lab-1')" id="btn-lab-1" class="lab-nav-btn p-3 rounded-xl border-2 border-teal-600 bg-teal-50 text-teal-900 font-bold text-xs sm:text-sm text-left transition">
+            <span class="block text-[11px] uppercase tracking-wider text-teal-600">Lab 1 • Indikator #4</span>
+            Simulator Logika XOR
+          </button>
+          <button onclick="switchLab('lab-2')" id="btn-lab-2" class="lab-nav-btn p-3 rounded-xl border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 font-bold text-xs sm:text-sm text-left transition">
+            <span class="block text-[11px] uppercase tracking-wider text-slate-500">Lab 2 • Indikator #6–#10</span>
+            Eksplorasi Tree & Graph
+          </button>
+          <button onclick="switchLab('lab-3')" id="btn-lab-3" class="lab-nav-btn p-3 rounded-xl border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 font-bold text-xs sm:text-sm text-left transition">
+            <span class="block text-[11px] uppercase tracking-wider text-slate-500">Lab 3 • Indikator #25–#28</span>
+            Pemilih Grafik Cerdas
+          </button>
+          <button onclick="switchLab('lab-4')" id="btn-lab-4" class="lab-nav-btn p-3 rounded-xl border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 font-bold text-xs sm:text-sm text-left transition">
+            <span class="block text-[11px] uppercase tracking-wider text-slate-500">Lab 4 • Indikator #33–#40</span>
+            Simulator Scratch & Blockly
+          </button>
+        </div>
+      </div>
+
+      <!-- LAB 1: SIMULATOR POLA LOGIKA XOR -->
+      <div id="lab-1" class="lab-panel bg-white rounded-2xl p-5 sm:p-6 shadow-sm border border-slate-200 space-y-5">
+        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-4">
+          <div>
+            <span class="text-xs font-bold bg-amber-100 text-amber-800 px-2.5 py-1 rounded-lg">Latihan Indikator #4 (Level 2 C3)</span>
+            <h3 class="text-lg font-extrabold text-slate-800 mt-1">Simulator Kombinasi Pola Grid Hitam–Putih (Logika XOR)</h3>
+          </div>
+          <button onclick="resetXorPreset()" class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition">
+            <i class="fa-solid fa-rotate-right mr-1"></i> Muat Contoh Soal
+          </button>
+        </div>
+
+        <div class="bg-sky-50 border border-sky-200 rounded-xl p-3.5 text-xs sm:text-sm text-sky-900">
+          <strong>Aturan Logika XOR:</strong> Klik kotak pada <strong>Papan A</strong> atau <strong>Papan B</strong> untuk mengubah warnanya. Jika dua kotak di posisi yang sama memiliki warna <strong>SAMA</strong> (Hitam+Hitam atau Putih+Putih) $\rightarrow$ hasil <strong>Putih (P)</strong>. Jika warnanya <strong>BERBEDA</strong> $\rightarrow$ hasil <strong>Hitam (H)</strong>.
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+          <!-- Papan A -->
+          <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 text-center">
+            <p class="font-extrabold text-slate-800 mb-3">Papan A (Klik Kotak)</p>
+            <div id="xorBoardA" class="grid grid-cols-3 gap-2 max-w-[210px] mx-auto"></div>
+          </div>
+
+          <!-- Papan B -->
+          <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 text-center">
+            <p class="font-extrabold text-slate-800 mb-3">Papan B (Klik Kotak)</p>
+            <div id="xorBoardB" class="grid grid-cols-3 gap-2 max-w-[210px] mx-auto"></div>
+          </div>
+
+          <!-- Papan Hasil XOR -->
+          <div class="bg-teal-50 p-4 rounded-2xl border-2 border-teal-500 text-center">
+            <p class="font-extrabold text-teal-900 mb-3">Papan Hasil Kombinasi (XOR)</p>
+            <div id="xorBoardResult" class="grid grid-cols-3 gap-2 max-w-[210px] mx-auto"></div>
+            <div class="mt-3 pt-2 border-t border-teal-200 text-sm font-bold text-teal-900">
+              Jumlah Kotak Hitam (H): <span id="xorBlackCount" class="text-lg font-black text-rose-600">3</span> kotak
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LAB 2: EKSPLORASI TREE & GRAPH -->
+      <div id="lab-2" class="lab-panel hidden bg-white rounded-2xl p-5 sm:p-6 shadow-sm border border-slate-200 space-y-6">
+        <div class="border-b border-slate-100 pb-4">
+          <span class="text-xs font-bold bg-sky-100 text-sky-800 px-2.5 py-1 rounded-lg">Latihan Indikator #6–#10</span>
+          <h3 class="text-lg font-extrabold text-slate-800 mt-1">Eksplorasi Struktur Data Tree (Folder) & Graph (Pertemanan)</h3>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <!-- Visualisasi Tree -->
+          <div class="bg-slate-50 rounded-2xl p-4 border border-slate-200 flex flex-col justify-between">
+            <div>
+              <h4 class="font-extrabold text-slate-800 text-base flex items-center gap-2">
+                <i class="fa-solid fa-sitemap text-teal-600"></i>
+                1. Struktur Data Tree (Hierarki Folder)
+              </h4>
+              <p class="text-xs text-slate-600 mt-1">Klik salah satu simpul folder di bawah untuk melihat statusnya (Root / Parent / Leaf) dan jumlah <em>edge</em> dari akar.</p>
+            </div>
+
+            <div class="my-3 bg-white rounded-xl border border-slate-200 p-2 overflow-x-auto">
+              <svg id="treeSvg" viewBox="0 0 420 250" class="w-full h-auto min-w-[320px]">
+                <!-- Edges -->
+                <line id="edge-Dokumen-Tugas" x1="210" y1="35" x2="115" y2="95" stroke="#cbd5e1" stroke-width="3"/>
+                <line id="edge-Dokumen-Foto" x1="210" y1="35" x2="305" y2="95" stroke="#cbd5e1" stroke-width="3"/>
+                <line id="edge-Tugas-Matematika" x1="115" y1="95" x2="60" y2="160" stroke="#cbd5e1" stroke-width="3"/>
+                <line id="edge-Tugas-Informatika" x1="115" y1="95" x2="165" y2="160" stroke="#cbd5e1" stroke-width="3"/>
+                <line id="edge-Foto-Liburan" x1="305" y1="95" x2="265" y2="160" stroke="#cbd5e1" stroke-width="3"/>
+                <line id="edge-Foto-Keluarga" x1="305" y1="95" x2="365" y2="160" stroke="#cbd5e1" stroke-width="3"/>
+                <line id="edge-Liburan-Bali" x1="265" y1="160" x2="265" y2="220" stroke="#cbd5e1" stroke-width="3"/>
+
+                <!-- Nodes -->
+                <g onclick="selectTreeNode('Dokumen')" class="cursor-pointer">
+                  <rect id="node-Dokumen" x="160" y="18" width="100" height="32" rx="8" fill="#0369a1"/>
+                  <text x="210" y="38" text-anchor="middle" fill="#ffffff" font-size="12" font-weight="bold">Dokumen</text>
+                </g>
+                <g onclick="selectTreeNode('Tugas')" class="cursor-pointer">
+                  <rect id="node-Tugas" x="75" y="80" width="80" height="30" rx="8" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+                  <text x="115" y="99" text-anchor="middle" fill="#0c4a6e" font-size="12" font-weight="bold">Tugas</text>
+                </g>
+                <g onclick="selectTreeNode('Foto')" class="cursor-pointer">
+                  <rect id="node-Foto" x="265" y="80" width="80" height="30" rx="8" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+                  <text x="305" y="99" text-anchor="middle" fill="#0c4a6e" font-size="12" font-weight="bold">Foto</text>
+                </g>
+                <g onclick="selectTreeNode('Matematika')" class="cursor-pointer">
+                  <rect id="node-Matematika" x="12" y="145" width="96" height="30" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+                  <text x="60" y="164" text-anchor="middle" fill="#14532d" font-size="11" font-weight="bold">Matematika</text>
+                </g>
+                <g onclick="selectTreeNode('Informatika')" class="cursor-pointer">
+                  <rect id="node-Informatika" x="117" y="145" width="96" height="30" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+                  <text x="165" y="164" text-anchor="middle" fill="#14532d" font-size="11" font-weight="bold">Informatika</text>
+                </g>
+                <g onclick="selectTreeNode('Liburan')" class="cursor-pointer">
+                  <rect id="node-Liburan" x="225" y="145" width="80" height="30" rx="8" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+                  <text x="265" y="164" text-anchor="middle" fill="#0c4a6e" font-size="11" font-weight="bold">Liburan</text>
+                </g>
+                <g onclick="selectTreeNode('Keluarga')" class="cursor-pointer">
+                  <rect id="node-Keluarga" x="322" y="145" width="86" height="30" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+                  <text x="365" y="164" text-anchor="middle" fill="#14532d" font-size="11" font-weight="bold">Keluarga</text>
+                </g>
+                <g onclick="selectTreeNode('Bali')" class="cursor-pointer">
+                  <rect id="node-Bali" x="230" y="205" width="70" height="30" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+                  <text x="265" y="224" text-anchor="middle" fill="#14532d" font-size="12" font-weight="bold">Bali</text>
+                </g>
+              </svg>
+            </div>
+
+            <div id="treeInfoBox" class="bg-white p-3.5 rounded-xl border border-teal-200 text-xs sm:text-sm text-slate-700">
+              <strong class="text-teal-800">Simpul Terpilih: Bali</strong> — Status: <strong>Leaf (Daun)</strong> karena tidak punya subfolder di bawahnya. Jalur dari <em>Dokumen</em>: <code>Dokumen &rarr; Foto &rarr; Liburan &rarr; Bali</code> (<strong>3 edge</strong>). Total <em>leaf</em> pada tree ini ada <strong>4</strong> (Matematika, Informatika, Keluarga, Bali).
+            </div>
+          </div>
+
+          <!-- Visualisasi Graph Pertemanan -->
+          <div class="bg-slate-50 rounded-2xl p-4 border border-slate-200 flex flex-col justify-between">
+            <div>
+              <h4 class="font-extrabold text-slate-800 text-base flex items-center gap-2">
+                <i class="fa-solid fa-circle-nodes text-amber-600"></i>
+                2. Struktur Data Graph (Rekomendasi Teman)
+              </h4>
+              <p class="text-xs text-slate-600 mt-1">Lihat bagaimana sistem media sosial merekomendasikan teman baru kepada <strong>Ayu</strong> menggunakan graf pertemanan (Indikator #10).</p>
+            </div>
+
+            <div class="my-3 bg-white rounded-xl border border-slate-200 p-2 overflow-x-auto">
+              <svg viewBox="0 0 420 250" class="w-full h-auto min-w-[320px]">
+                <!-- Edges -->
+                <line x1="70" y1="125" x2="175" y2="65" stroke="#0284c7" stroke-width="3"/>
+                <line x1="70" y1="125" x2="175" y2="185" stroke="#0284c7" stroke-width="3"/>
+                <line x1="175" y1="65" x2="175" y2="185" stroke="#94a3b8" stroke-width="2.5"/>
+                <line x1="175" y1="65" x2="290" y2="125" stroke="#f59e0b" stroke-width="3" stroke-dasharray="6,4"/>
+                <line x1="290" y1="125" x2="380" y2="125" stroke="#94a3b8" stroke-width="2.5"/>
+
+                <!-- Nodes -->
+                <circle cx="70" cy="125" r="28" fill="#0369a1"/>
+                <text x="70" y="130" text-anchor="middle" fill="#fff" font-size="13" font-weight="bold">Ayu</text>
+
+                <circle cx="175" cy="65" r="26" fill="#0d9488"/>
+                <text x="175" y="70" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">Budi</text>
+
+                <circle cx="175" cy="185" r="26" fill="#0d9488"/>
+                <text x="175" y="190" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">Citra</text>
+
+                <circle cx="290" cy="125" r="28" fill="#fef3c7" stroke="#d97706" stroke-width="3"/>
+                <text x="290" y="123" text-anchor="middle" fill="#92400e" font-size="12" font-weight="bold">Dedi</text>
+                <text x="290" y="137" text-anchor="middle" fill="#b45309" font-size="9" font-weight="bold">(2 Langkah)</text>
+
+                <circle cx="380" cy="125" r="24" fill="#e2e8f0" stroke="#64748b" stroke-width="2"/>
+                <text x="380" y="130" text-anchor="middle" fill="#334155" font-size="12" font-weight="bold">Eka</text>
+              </svg>
+            </div>
+
+            <div class="bg-amber-50 p-3.5 rounded-xl border border-amber-200 text-xs sm:text-sm text-amber-950">
+              <strong>Analisis Rekomendasi untuk Ayu:</strong><br>
+              • <strong>Budi & Citra</strong> sudah berteman langsung (1 ruas).<br>
+              • <strong>Dedi</strong> paling tepat direkomendasikan karena belum berteman dengan Ayu, tetapi terhubung melalui <em>teman bersama (mutual friend)</em> yaitu <strong>Budi</strong> (jarak 2 ruas: Ayu–Budi–Dedi).
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LAB 3: PEMILIH GRAFIK CERDAS (TANPA DIAGRAM PENCAR) -->
+      <div id="lab-3" class="lab-panel hidden bg-white rounded-2xl p-5 sm:p-6 shadow-sm border border-slate-200 space-y-5">
+        <div class="border-b border-slate-100 pb-4">
+          <span class="text-xs font-bold bg-emerald-100 text-emerald-800 px-2.5 py-1 rounded-lg">Latihan Indikator #25–#28</span>
+          <h3 class="text-lg font-extrabold text-slate-800 mt-1">Pemilih Jenis Grafik yang Sesuai</h3>
+          <p class="text-xs sm:text-sm text-slate-600 mt-1">Pilih salah satu studi kasus data di bawah ini untuk melihat jenis grafik yang paling tepat beserta alasan pemilihannya.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <button onclick="selectChartCase('line')" id="chart-btn-line" class="chart-case-btn p-4 rounded-2xl border-2 border-teal-600 bg-teal-50 text-left transition">
+            <span class="text-xs font-bold text-teal-700">Kasus 1 • Indikator #25 & #28</span>
+            <p class="font-extrabold text-slate-800 mt-1">Perubahan Suhu Udara 7 Hari / 12 Bulan</p>
+            <p class="text-xs text-slate-600 mt-1">Data deret waktu yang naik turun dari hari ke hari atau bulan ke bulan.</p>
+          </button>
+          <button onclick="selectChartCase('pie')" id="chart-btn-pie" class="chart-case-btn p-4 rounded-2xl border border-slate-200 bg-slate-50 hover:bg-slate-100 text-left transition">
+            <span class="text-xs font-bold text-slate-500">Kasus 2 • Indikator #26</span>
+            <p class="font-extrabold text-slate-800 mt-1">Persentase Ekskul Favorit (Total 100%)</p>
+            <p class="text-xs text-slate-600 mt-1">Pramuka 40%, Basket 25%, Paduan Suara 20%, Futsal 15%.</p>
+          </button>
+          <button onclick="selectChartCase('bar')" id="chart-btn-bar" class="chart-case-btn p-4 rounded-2xl border border-slate-200 bg-slate-50 hover:bg-slate-100 text-left transition">
+            <span class="text-xs font-bold text-slate-500">Kasus 3 • Indikator #27</span>
+            <p class="font-extrabold text-slate-800 mt-1">Perbandingan Peserta Laki-Laki & Perempuan</p>
+            <p class="text-xs text-slate-600 mt-1">Membandingkan dua kelompok kategori pada tahun 2024, 2025, dan 2026.</p>
+          </button>
+        </div>
+
+        <div id="chartDisplayArea" class="bg-slate-50 rounded-2xl p-5 border border-slate-200 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+          <!-- Diisi via JS -->
+        </div>
+      </div>
+
+      <!-- LAB 4: MINI SIMULATOR SCRATCH & BLOCKLY -->
+      <div id="lab-4" class="lab-panel hidden bg-white rounded-2xl p-5 sm:p-6 shadow-sm border border-slate-200 space-y-6">
+        <div class="border-b border-slate-100 pb-4">
+          <span class="text-xs font-bold bg-purple-100 text-purple-800 px-2.5 py-1 rounded-lg">Latihan Indikator #33–#40</span>
+          <h3 class="text-lg font-extrabold text-slate-800 mt-1">Simulasi Panggung Scratch & Penelusuran (Tracing) Blockly</h3>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <!-- Scratch Mini Stage -->
+          <div class="bg-slate-50 rounded-2xl p-4 border border-slate-200 space-y-3">
+            <div class="flex items-center justify-between">
+              <h4 class="font-extrabold text-slate-800 text-base">1. Panggung (Stage) & Sprite Scratch</h4>
+              <span id="stageThemeLabel" class="text-xs font-bold px-2.5 py-1 rounded-full bg-sky-100 text-sky-800">Latar: Kelas</span>
+            </div>
+
+            <!-- Stage Box -->
+            <div id="scratchStage" class="relative w-full h-52 rounded-2xl border-2 border-slate-300 overflow-hidden bg-gradient-to-b from-sky-100 to-amber-50 transition-all duration-300 flex items-end p-4">
+              <!-- Dekorasi Latar -->
+              <div id="stageDecor" class="absolute top-3 left-3 text-xs font-bold text-slate-500 bg-white/80 px-2.5 py-1 rounded-lg">
+                <i class="fa-solid fa-chalkboard mr-1"></i> Ruang Kelas IX
+              </div>
+              <!-- Balon Ucapan -->
+              <div id="spriteSpeech" class="hidden absolute top-12 left-1/2 -translate-x-1/2 bg-white border-2 border-slate-700 rounded-2xl px-3.5 py-1.5 text-xs font-extrabold text-slate-800 shadow-md">
+                Sampai tujuan!
+              </div>
+              <!-- Karakter Sprite -->
+              <div id="scratchSprite" class="transition-all duration-300 flex flex-col items-center" style="transform: translate(0px, 0px);">
+                <div class="w-14 h-14 rounded-2xl bg-amber-500 border-2 border-amber-700 text-white flex items-center justify-center shadow-md text-2xl">
+                  <i class="fa-solid fa-cat"></i>
+                </div>
+                <span class="text-[11px] font-extrabold bg-white/90 px-2 py-0.5 rounded mt-1 text-slate-700">Sprite Kucing</span>
+              </div>
+            </div>
+
+            <!-- Tombol Aksi Event Scratch -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+              <button onclick="runScratchMove()" class="py-2 px-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition">
+                <i class="fa-solid fa-flag mr-1"></i> Ulangi 3x Maju
+              </button>
+              <button onclick="runScratchJump()" class="py-2 px-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white text-xs font-bold transition">
+                <i class="fa-solid fa-arrow-up mr-1"></i> Spasi (Lompat Y)
+              </button>
+              <button onclick="toggleScratchBackdrop()" class="py-2 px-2.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold transition">
+                <i class="fa-solid fa-image mr-1"></i> Ganti Latar
+              </button>
+              <button onclick="resetScratchStage()" class="py-2 px-2.5 rounded-xl bg-slate-200 hover:bg-slate-300 text-slate-800 text-xs font-bold transition">
+                <i class="fa-solid fa-rotate-left mr-1"></i> Reset
+              </button>
+            </div>
+            <p id="scratchLog" class="text-xs text-slate-600 bg-white p-2.5 rounded-xl border border-slate-200">
+              Klik tombol di atas untuk melihat cara <strong>Sprite</strong> merespons blok <strong>Event</strong> pada <strong>Stage</strong>.
+            </p>
+          </div>
+
+          <!-- Blockly Variable & Loop Tracer -->
+          <div class="bg-slate-50 rounded-2xl p-4 border border-slate-200 space-y-3 flex flex-col justify-between">
+            <div>
+              <h4 class="font-extrabold text-slate-800 text-base">2. Penelusuran (Tracing) Blok Blockly (#35)</h4>
+              <p class="text-xs text-slate-600 mt-1">Ubah nilai penambahan poin di bawah, lalu jalankan simulasi untuk melihat hasil variabel dan percabangan <code>if-else</code>.</p>
+
+              <!-- Tampilan Visual Blok Blockly -->
+              <div class="mt-3 space-y-1.5 font-mono text-xs">
+                <div class="bg-rose-600 text-white px-3 py-2 rounded-lg font-bold shadow-sm">
+                  set <span class="bg-rose-800 px-1.5 py-0.5 rounded">nilai</span> to <span class="bg-white text-rose-900 px-1.5 py-0.5 rounded">0</span>
+                </div>
+                <div class="bg-emerald-600 text-white p-2.5 rounded-lg font-bold shadow-sm space-y-1.5">
+                  <div>repeat <span class="bg-white text-emerald-900 px-1.5 py-0.5 rounded">3</span> times do</div>
+                  <div class="ml-4 bg-rose-500 text-white px-3 py-1.5 rounded flex items-center gap-2">
+                    <span>change <span class="bg-rose-800 px-1.5 py-0.5 rounded">nilai</span> by</span>
+                    <select id="blocklyStepInput" onchange="runBlocklyTrace()" class="bg-white text-slate-900 font-bold rounded px-1.5 py-0.5 outline-none">
+                      <option value="5">5</option>
+                      <option value="10" selected>10</option>
+                      <option value="15">15</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="bg-sky-600 text-white p-2.5 rounded-lg font-bold shadow-sm space-y-1">
+                  <div>if <span class="bg-sky-800 px-1.5 py-0.5 rounded">nilai &gt; 20</span> do</div>
+                  <div class="ml-4 bg-teal-500 px-2.5 py-1 rounded">cetak "Lulus"</div>
+                  <div>else do</div>
+                  <div class="ml-4 bg-amber-500 px-2.5 py-1 rounded">cetak "Ulangi"</div>
+                </div>
+              </div>
+            </div>
+
+            <div id="blocklyTraceOutput" class="bg-white p-3.5 rounded-xl border-2 border-teal-500 text-xs sm:text-sm space-y-1">
+              <!-- Diisi JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- TAB 3: KUIS LATIHAN PERSIAPAN (10 SOAL BARU BERBASIS KISI-KISI)     -->
+    <!-- =================================================================== -->
+    <section id="tab-kuis" class="tab-content hidden space-y-6 animate-pop">
+      <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div>
+          <h2 class="text-lg sm:text-xl font-extrabold text-slate-800 flex items-center gap-2">
+            <i class="fa-solid fa-pen-to-square text-emerald-600"></i>
+            Kuis Latihan Persiapan PSAS (10 Soal Baru)
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-600 mt-1">
+            Setiap soal mewakili 1 topik pada kisi-kisi (Topik 1–10) dengan konteks baru agar kamu terbiasa menghadapi tipe soal HOTS.
+          </p>
+        </div>
+        <div class="flex items-center gap-3 shrink-0">
+          <div class="bg-emerald-50 border border-emerald-200 px-4 py-2 rounded-xl text-center">
+            <span class="block text-[11px] font-bold text-emerald-700 uppercase">Skor Latihan</span>
+            <span id="quizScoreDisplay" class="text-xl font-black text-emerald-800">0 / 100</span>
+          </div>
+          <button onclick="resetQuiz()" class="px-4 py-3 rounded-xl bg-slate-800 hover:bg-slate-900 text-white text-xs font-bold transition">
+            <i class="fa-solid fa-rotate-right mr-1"></i> Ulangi Kuis
+          </button>
+        </div>
+      </div>
+
+      <!-- Rekap Topik yang Perlu Diulang -->
+      <div id="quizSummaryBox" class="hidden bg-amber-50 border-2 border-amber-400 rounded-2xl p-5 space-y-2"></div>
+
+      <!-- Daftar 10 Soal Latihan -->
+      <div id="quizContainer" class="space-y-4"></div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- TAB 4: RANGKUMAN KILAT & STRATEGI PSAS                              -->
+    <!-- =================================================================== -->
+    <section id="tab-rangkuman" class="tab-content hidden space-y-6 animate-pop">
+      <!-- Strategi Pengerjaan 60 Menit -->
+      <div class="bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-2xl p-5 sm:p-6 shadow-md">
+        <h2 class="text-lg sm:text-xl font-extrabold flex items-center gap-2">
+          <i class="fa-solid fa-stopwatch"></i>
+          Strategi Sukses Mengerjakan 40 Soal dalam 60 Menit
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+          <div class="bg-black/15 backdrop-blur-sm rounded-xl p-4 border border-white/20">
+            <p class="font-extrabold text-sm">1. Manajemen Waktu (1,5 Menit/Soal)</p>
+            <p class="text-xs text-amber-50 mt-1 leading-relaxed">
+              40 soal dalam 60 menit berarti rata-rata <strong>90 detik per soal</strong>. Kerjakan soal Level 1 & 2 yang mudah terlebih dahulu agar waktu tersisa banyak untuk menelusuri grafik dan blok kode.
+            </p>
+          </div>
+          <div class="bg-black/15 backdrop-blur-sm rounded-xl p-4 border border-white/20">
+            <p class="font-extrabold text-sm">2. Baca Pertanyaan Sebelum Stimulus Panjang</p>
+            <p class="text-xs text-amber-50 mt-1 leading-relaxed">
+              Pada soal cerita HOTS, baca kalimat tanya di bagian akhir terlebih dahulu agar kamu tahu informasi spesifik apa yang harus dicari di dalam tabel atau teks stimulus.
+            </p>
+          </div>
+          <div class="bg-black/15 backdrop-blur-sm rounded-xl p-4 border border-white/20">
+            <p class="font-extrabold text-sm">3. Coret-Coret Tracing Variabel & Rute</p>
+            <p class="text-xs text-amber-50 mt-1 leading-relaxed">
+              Karena tes dilaksanakan secara <strong>Paper Based</strong>, manfaatkan kertas buram/lembar soal untuk mencatat perubahan nilai variabel perulangan dan menandai jalur pada <em>Tree</em> atau <em>Graph</em>.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Kartu Perbandingan Konsep Kunci -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <!-- 4 Pilar BK -->
+        <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 space-y-3">
+          <h3 class="font-extrabold text-slate-800 text-base flex items-center gap-2 border-b border-slate-100 pb-2.5">
+            <i class="fa-solid fa-puzzle-piece text-sky-600"></i>
+            4 Pilar Berpikir Komputasional (Topik 1)
+          </h3>
+          <ul class="space-y-2 text-xs sm:text-sm text-slate-700">
+            <li class="p-2.5 rounded-xl bg-slate-50"><strong>Dekomposisi:</strong> Memecah masalah besar/kompleks menjadi bagian-bagian kecil yang mudah dikelola.</li>
+            <li class="p-2.5 rounded-xl bg-slate-50"><strong>Pengenalan Pola:</strong> Mencari kesamaan, tren, atau keterulangan data untuk memprediksi hasil berikutnya.</li>
+            <li class="p-2.5 rounded-xl bg-slate-50"><strong>Abstraksi:</strong> Menyaring fokus hanya pada informasi penting dan mengabaikan detail yang tidak relevan.</li>
+            <li class="p-2.5 rounded-xl bg-slate-50"><strong>Algoritma:</strong> Menyusun urutan langkah logis dan sistematis dari awal hingga selesai.</li>
+          </ul>
+        </div>
+
+        <!-- Tree vs Graph -->
+        <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 space-y-3">
+          <h3 class="font-extrabold text-slate-800 text-base flex items-center gap-2 border-b border-slate-100 pb-2.5">
+            <i class="fa-solid fa-diagram-project text-teal-600"></i>
+            Perbandingan Tree vs Graph (Topik 2)
+          </h3>
+          <div class="overflow-x-auto">
+            <table class="w-full text-xs sm:text-sm text-left border-collapse">
+              <thead>
+                <tr class="bg-teal-50 text-teal-900">
+                  <th class="p-2.5 rounded-tl-lg">Aspek</th>
+                  <th class="p-2.5">Tree (Pohon)</th>
+                  <th class="p-2.5 rounded-tr-lg">Graph (Graf)</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100 text-slate-700">
+                <tr>
+                  <td class="p-2.5 font-bold">Bentuk</td>
+                  <td class="p-2.5">Hierarki bertingkat dari atas ke bawah</td>
+                  <td class="p-2.5">Jaringan bebas saling terhubung</td>
+                </tr>
+                <tr>
+                  <td class="p-2.5 font-bold">Simpul Utama</td>
+                  <td class="p-2.5">Memiliki 1 <em>Root</em> (akar) tertinggi</td>
+                  <td class="p-2.5">Tidak ada simpul akar khusus</td>
+                </tr>
+                <tr>
+                  <td class="p-2.5 font-bold">Siklus / Arah</td>
+                  <td class="p-2.5">Tidak membentuk siklus; 1 <em>parent</em> tiap anak</td>
+                  <td class="p-2.5">Bisa satu/dua arah & membentuk siklus</td>
+                </tr>
+                <tr>
+                  <td class="p-2.5 font-bold">Contoh</td>
+                  <td class="p-2.5">Struktur folder, bagan OSIS, silsilah</td>
+                  <td class="p-2.5">Peta jalan desa, jaringan pertemanan</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 4 Pendekatan AI -->
+        <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 space-y-3">
+          <h3 class="font-extrabold text-slate-800 text-base flex items-center gap-2 border-b border-slate-100 pb-2.5">
+            <i class="fa-solid fa-robot text-amber-600"></i>
+            4 Pendekatan Kecerdasan Artifisial (Topik 3–5)
+          </h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs text-slate-700">
+            <div class="p-3 rounded-xl bg-amber-50 border border-amber-200">
+              <p class="font-extrabold text-amber-900">1. Bertindak Seperti Manusia</p>
+              <p class="mt-1">Meniru perilaku/percakapan manusia agar sulit dibedakan (contoh: <em>Chatbot</em> layanan pelanggan).</p>
+            </div>
+            <div class="p-3 rounded-xl bg-sky-50 border border-sky-200">
+              <p class="font-extrabold text-sky-900">2. Berpikir Seperti Manusia</p>
+              <p class="mt-1">Meniru cara kerja otak dan proses kognitif manusia dalam belajar dan mengingat.</p>
+            </div>
+            <div class="p-3 rounded-xl bg-indigo-50 border border-indigo-200">
+              <p class="font-extrabold text-indigo-900">3. Berpikir Rasional</p>
+              <p class="mt-1">Menarik kesimpulan yang pasti sahih berdasarkan aturan logika formal dan silogisme.</p>
+            </div>
+            <div class="p-3 rounded-xl bg-emerald-50 border border-emerald-200">
+              <p class="font-extrabold text-emerald-900">4. Bertindak Rasional</p>
+              <p class="mt-1">Agen cerdas yang memilih tindakan terbaik sesuai tujuan dan keselamatan (contoh: navigasi, robot gudang).</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Scratch vs Blockly & Blog vs Vlog -->
+        <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 space-y-3">
+          <h3 class="font-extrabold text-slate-800 text-base flex items-center gap-2 border-b border-slate-100 pb-2.5">
+            <i class="fa-solid fa-code text-purple-600"></i>
+            Intisari Scratch vs Blockly & Blog vs Vlog (Topik 8–10)
+          </h3>
+          <div class="space-y-2.5 text-xs sm:text-sm text-slate-700">
+            <div class="p-3 rounded-xl bg-purple-50 border border-purple-200">
+              <p class="font-extrabold text-purple-900">Scratch vs Blockly</p>
+              <p class="mt-1"><strong>Scratch</strong> berbasis kejadian (<em>event-driven</em>) dengan <strong>Sprite</strong> (objek) di atas <strong>Stage</strong> (panggung) untuk animasi/gim. <strong>Blockly</strong> bersifat prosedural (urutan langkah I-P-O) dengan blok dasar yang mencegah kesalahan sintaks.</p>
+            </div>
+            <div class="p-3 rounded-xl bg-rose-50 border border-rose-200">
+              <p class="font-extrabold text-rose-900">Blog vs Vlog</p>
+              <p class="mt-1"><strong>Blog</strong> menyajikan konten tulisan/artikel yang tersusun kronologis dari terbaru (dapat dicari lewat mesin pencari). <strong>Vlog</strong> menyajikan konten dalam bentuk rekaman video (rekam dengan dua tangan, tanpa <em>zoom digital</em>, mikrofon tidak tertutup).</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-white border-t border-slate-200 mt-10 py-4 px-4 text-center text-xs text-slate-500">
+    <p class="font-semibold text-slate-700">Media Pembelajaran Persiapan PSAS Informatika Kelas IX — SMP Negeri 4 Ciamis</p>
+    <p class="mt-0.5">Disusun berdasarkan Kisi-Kisi PSAS Tahun Pelajaran 2026/2027 • Buku Informatika SMP Kelas IX</p>
+  </footer>
+
+  <!-- MODAL KONFIRMASI RESET PROGRES (TANPA ALERT/CONFIRM BAWAAN BROWSER) -->
+  <div id="resetModal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-xl border border-slate-200 animate-pop">
+      <div class="w-12 h-12 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center text-xl mb-3">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+      </div>
+      <h3 class="text-lg font-extrabold text-slate-800">Atur Ulang Progres Belajar?</h3>
+      <p class="text-sm text-slate-600 mt-1">
+        Semua tanda centang <strong>"Sudah Paham"</strong> pada 40 indikator kisi-kisi dan riwayat jawaban kuis latihan akan dihapus dari perangkat ini.
+      </p>
+      <div class="mt-5 flex justify-end gap-2.5">
+        <button onclick="closeResetModal()" class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-bold transition">Batal</button>
+        <button onclick="confirmResetProgress()" class="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-sm font-bold transition">Ya, Reset Semua</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT APLIKASI -->
+  <script>
+    // =========================================================================
+    // 1. DATA LENGKAP 10 TOPIK & 40 INDIKATOR KISI-KISI PSAS INFORMATIKA IX
+    // =========================================================================
+    const TOPICS = [
+      { id: 1, title: "Topik 1: Konsep Dasar Berpikir Komputasional", range: "No. 1 – 5", icon: "fa-puzzle-piece", color: "sky" },
+      { id: 2, title: "Topik 2: Struktur Data Tree dan Graph", range: "No. 6 – 10", icon: "fa-diagram-project", color: "teal" },
+      { id: 3, title: "Topik 3: Konsep Dasar Kecerdasan Artifisial: Rekomendasi Produk atau Konten", range: "No. 11 – 14", icon: "fa-wand-magic-sparkles", color: "indigo" },
+      { id: 4, title: "Topik 4: Kecerdasan Artifisial Seperti Manusia & Etika KA", range: "No. 15 – 17", icon: "fa-user-gear", color: "purple" },
+      { id: 5, title: "Topik 5: Pemrograman Visual Blockly & Kecerdasan Artifisial Rasional", range: "No. 18 – 20", icon: "fa-robot", color: "amber" },
+      { id: 6, title: "Topik 6: Integrasi Aplikasi Perkantoran", range: "No. 21 – 24", icon: "fa-file-invoice", color: "emerald" },
+      { id: 7, title: "Topik 7: Jenis Grafik yang Sesuai", range: "No. 25 – 28", icon: "fa-chart-column", color: "cyan" },
+      { id: 8, title: "Topik 8: Blog dan Vlog", range: "No. 29 – 32", icon: "fa-video", color: "rose" },
+      { id: 9, title: "Topik 9: Pemrograman Visual Scratch dan Blockly", range: "No. 33 – 36", icon: "fa-code", color: "blue" },
+      { id: 10, title: "Topik 10: Stage, Sprite, dan Blok Kode Sederhana Scratch & Blockly", range: "No. 37 – 40", icon: "fa-gamepad", color: "orange" }
+    ];
+
+    const INDICATORS = [
+      // Topik 1 (#1-#5)
+      {
+        no: 1, topicId: 1, level: "1", levelLabel: "Level 1 (C2)", dimension: "Faktual",
+        indicator: "Disajikan skenario pembuatan aplikasi, peserta didik dapat mengidentifikasi pilar dekomposisi.",
+        concept: "Dekomposisi adalah teknik memecah masalah besar atau proyek yang rumit menjadi beberapa bagian kecil yang lebih sederhana agar mudah dikerjakan.",
+        tip: "Cari kata kunci dalam soal seperti 'memecah aplikasi menjadi beberapa bagian kecil', 'membagi tugas menjadi sub-masalah', atau 'menguraikan masalah besar'."
+      },
+      {
+        no: 2, topicId: 1, level: "2", levelLabel: "Level 2 (C3)", dimension: "Konseptual",
+        indicator: "Disajikan data penjualan harian, peserta didik dapat menemukan pola dan memprediksi data berikutnya.",
+        concept: "Pengenalan pola (pattern recognition) adalah kemampuan mengamati kesamaan, tren, atau keterulangan nilai pada sekumpulan data untuk memperkirakan kejadian berikutnya.",
+        tip: "Kelompokkan angka pada tabel berdasarkan hari kerja (Senin–Kamis) dan akhir pekan (Jumat–Minggu), lalu lihat kisaran angka yang berulang."
+      },
+      {
+        no: 3, topicId: 1, level: "2", levelLabel: "Level 2 (C3)", dimension: "Prosedural",
+        indicator: "Disajikan daftar data pada program kasir, peserta didik dapat menentukan data penting berdasarkan prinsip abstraksi.",
+        concept: "Abstraksi adalah proses menyaring dan mengambil informasi yang benar-benar diperlukan untuk menyelesaikan masalah, sambil mengabaikan detail yang tidak relevan.",
+        tip: "Fokus pada tujuan program: untuk menghitung total bayar kasir, yang dibutuhkan hanyalah nama barang, harga, dan jumlah beli. Abaikan warna kemasan atau nama pabrik."
+      },
+      {
+        no: 4, topicId: 1, level: "2", levelLabel: "Level 2 (C3)", dimension: "Prosedural",
+        indicator: "Disajikan aturan kombinasi dua pola grid hitam-putih berbasis logika XOR, peserta didik dapat menghitung banyaknya kotak hitam pada hasil kombinasi.",
+        concept: "Operasi logika XOR menghasilkan nilai Benar/Hitam (H) hanya jika kedua masukan berbeda (H dengan P, atau P dengan H). Jika warnanya sama, hasilnya Putih (P).",
+        tip: "Bandingkan posisi kotak satu per satu dari baris atas lalu baris bawah. Beri tanda setiap pasangan yang warnanya berbeda, lalu hitung total tandanya (Coba di Lab 1!)."
+      },
+      {
+        no: 5, topicId: 1, level: "3", levelLabel: "Level 3 (C4)", dimension: "Konseptual",
+        indicator: "Disajikan kegiatan perancangan sistem, peserta didik dapat menganalisis urutan pilar berpikir komputasional.",
+        concept: "Keempat pilar berpikir komputasional bekerja saling melengkapi: Dekomposisi (memecah masalah) → Pengenalan Pola (mencari kesamaan atribut) → Abstraksi (menyaring data penting) → Algoritma (menyusun langkah proses).",
+        tip: "Cocokkan kata kunci tiap pernyataan dengan definisi pilar: memecah = Dekomposisi, kesamaan = Pola, mengabaikan detail = Abstraksi, langkah urutan = Algoritma."
+      },
+
+      // Topik 2 (#6-#10)
+      {
+        no: 6, topicId: 2, level: "1", levelLabel: "Level 1 (C2)", dimension: "Faktual",
+        indicator: "Disajikan struktur organisasi, peserta didik dapat menentukan struktur data yang sesuai.",
+        concept: "Struktur data Tree (pohon) digunakan untuk menyajikan data yang memiliki hubungan hierarki bertingkat dari satu pimpinan tertinggi (root) ke bawahan-bawahannya.",
+        tip: "Jika soal menyebutkan hubungan atasan–bawahan, silsilah keluarga, atau folder dan subfolder bertingkat, jawabannya pasti Tree (pohon)."
+      },
+      {
+        no: 7, topicId: 2, level: "2", levelLabel: "Level 2 (C3)", dimension: "Konseptual",
+        indicator: "Disajikan deskripsi tree, peserta didik dapat menentukan simpul daun (leaf).",
+        concept: "Dalam struktur data Tree, simpul paling atas disebut Root (akar), simpul yang memiliki cabang di bawahnya disebut Parent (induk), dan simpul ujung yang tidak memiliki anak sama sekali disebut Leaf (daun).",
+        tip: "Gambar sketsa pohon kecil di kertas buram berdasarkan soal, lalu lingkari huruf/simpul yang paling ujung bawah dan tidak bercabang lagi."
+      },
+      {
+        no: 8, topicId: 2, level: "2", levelLabel: "Level 2 (C3)", dimension: "Prosedural",
+        indicator: "Disajikan diagram tree folder, peserta didik dapat menentukan banyak edge pada suatu jalur dan banyak leaf.",
+        concept: "Edge adalah garis penghubung antar dua simpul (folder). Jumlah edge dari akar ke suatu folder dihitung dari banyaknya garis yang dilewati. Leaf adalah semua simpul ujung yang tidak punya garis ke bawah.",
+        tip: "Hitung garis penghubungnya (bukan jumlah kotaknya!) saat menelusuri jalur dari folder akar ke folder tujuan (Latih di Lab 2!)."
+      },
+      {
+        no: 9, topicId: 2, level: "2", levelLabel: "Level 2 (C3)", dimension: "Prosedural",
+        indicator: "Disajikan graf jalan antar desa, peserta didik dapat menentukan pernyataan yang benar tentang keterhubungan simpul dan rute.",
+        concept: "Graf (Graph) terdiri dari simpul (titik/desa) dan ruas/edge (garis jalan). Dua simpul yang tidak terhubung langsung tetap bisa dicapai melalui simpul perantara.",
+        tip: "Telusuri setiap opsi jawaban langsung pada gambar graf: pastikan setiap perpindahan titik memiliki garis penghubung yang nyata."
+      },
+      {
+        no: 10, topicId: 2, level: "3", levelLabel: "Level 3 (C4)", dimension: "Konseptual",
+        indicator: "Disajikan graf pertemanan, peserta didik dapat menganalisis simpul yang tepat direkomendasikan.",
+        concept: "Pada graf jaringan sosial, rekomendasi 'orang yang mungkin kamu kenal' diberikan kepada pengguna yang belum berteman langsung, tetapi memiliki jarak 2 langkah melalui teman bersama (mutual friend).",
+        tip: "Eliminasi akun yang sudah berteman langsung (1 langkah), lalu pilih akun yang terhubung lewat teman bersama (2 langkah), bukan yang berjarak 3 langkah."
+      },
+
+      // Topik 3 (#11-#14)
+      {
+        no: 11, topicId: 3, level: "1", levelLabel: "Level 1 (C2)", dimension: "Konseptual",
+        indicator: "Disajikan ilustrasi penggunaan aplikasi video, peserta didik dapat mengidentifikasi fitur sistem rekomendasi.",
+        concept: "Sistem rekomendasi (recommendation system) adalah penerapan Kecerdasan Artifisial (AI) yang menyarankan video, musik, atau konten baru sesuai kebiasaan dan minat pengguna.",
+        tip: "Perhatikan kata kunci: beranda otomatis menyesuaikan tontonan atau menyarankan konten yang belum pernah dibuka."
+      },
+      {
+        no: 12, topicId: 3, level: "2", levelLabel: "Level 2 (C3)", dimension: "Prosedural",
+        indicator: "Disajikan perilaku pengguna marketplace, peserta didik dapat menentukan data yang dimanfaatkan sistem rekomendasi.",
+        concept: "Sistem rekomendasi e-commerce bekerja dengan merekam jejak interaksi digital pengguna, seperti kata kunci pencarian, produk yang diklik/dilihat, durasi melihat, dan riwayat pembelian.",
+        tip: "Pilih jawaban yang berkaitan dengan aktivitas perilaku pengguna di aplikasi, bukan spesifikasi teknis perangkat keras seperti kapasitas baterai."
+      },
+      {
+        no: 13, topicId: 3, level: "3", levelLabel: "Level 3 (C4)", dimension: "Konseptual",
+        indicator: "Disajikan kasus rekomendasi film, peserta didik dapat menganalisis cara kerja rekomendasi berdasarkan kemiripan pengguna.",
+        concept: "Metode Collaborative Filtering bekerja dengan membandingkan kemiripan selera antarpengguna. Jika Pengguna A dan B menyukai film yang sama, maka film lain yang disukai A akan direkomendasikan kepada B.",
+        tip: "Cari penjelasan yang menekankan kesamaan selera/minat dua pengguna pada tontonan sebelumnya sebagai dasar prediksi."
+      },
+      {
+        no: 14, topicId: 3, level: "3", levelLabel: "Level 3 (C5)", dimension: "Metakognitif",
+        indicator: "Disajikan kasus rekomendasi yang monoton, peserta didik dapat mengevaluasi tindakan yang tepat untuk memperbaiki rekomendasi.",
+        concept: "Algoritma rekomendasi terus belajar dari interaksi terbaru pengguna. Untuk mengubah topik beranda, pengguna perlu aktif mencari topik baru dan memberi sinyal 'tidak tertarik' pada topik lama.",
+        tip: "Menghapus aplikasi dengan akun yang sama tidak menghapus riwayat di server; cara terbaik adalah melatih ulang algoritma lewat pencarian topik baru."
+      },
+
+      // Topik 4 (#15-#17)
+      {
+        no: 15, topicId: 4, level: "2", levelLabel: "Level 2 (C3)", dimension: "Konseptual",
+        indicator: "Disajikan beberapa sistem kecerdasan artifisial, peserta didik dapat mengklasifikasikan sistem yang bertindak seperti manusia.",
+        concept: "Pendekatan Bertindak Seperti Manusia (Acting Humanly / Uji Turing) berfokus pada kemampuan mesin berkomunikasi atau berperilaku alami sehingga sulit dibedakan dari manusia.",
+        tip: "Cari contoh sistem seperti chatbot layanan pelanggan atau asisten virtual yang percakapannya menyerupai manusia."
+      },
+      {
+        no: 16, topicId: 4, level: "2", levelLabel: "Level 2 (C3)", dimension: "Konseptual",
+        indicator: "Disajikan kasus pemodelan proses berpikir, peserta didik dapat menentukan pendekatan berpikir seperti manusia.",
+        concept: "Pendekatan Berpikir Seperti Manusia (Thinking Humanly / pemodelan kognitif) merancang program komputer dengan meniru cara otak manusia memproses informasi dan mengambil keputusan.",
+        tip: "Kata kunci utamanya adalah 'mensimulasikan proses berpikir manusia' atau 'meniru cara kerja otak/kognitif manusia'."
+      },
+      {
+        no: 17, topicId: 4, level: "3", levelLabel: "Level 3 (C5)", dimension: "Metakognitif",
+        indicator: "Disajikan kasus siswa yang menyalin-tempel langsung hasil teks dari aplikasi KA generatif tanpa verifikasi, peserta didik dapat mengevaluasi tindakan tersebut berdasarkan prinsip literasi digital.",
+        concept: "Kecerdasan Artifisial (KA) generatif dapat menghasilkan informasi yang keliru (halusinasi) atau kurang sesuai konteks. Pengguna wajib memverifikasi fakta dan mengolahnya kembali dengan kreativitas sendiri.",
+        tip: "Dalam literasi digital, KA diposisikan sebagai alat bantu berpikir, bukan pengganti proses belajar dengan cara copy-paste mentah."
+      },
+
+      // Topik 5 (#18-#20)
+      {
+        no: 18, topicId: 5, level: "1", levelLabel: "Level 1 (C2)", dimension: "Konseptual",
+        indicator: "Disajikan deskripsi cara penyusunan blok pada Blockly, peserta didik dapat menjelaskan keunggulan pemrograman visual blok bagi pemula.",
+        concept: "Pemrograman visual blok (seperti Blockly dan Scratch) menggunakan antarmuka seret-dan-lepas (drag and drop) sehingga pemula dapat fokus pada logika tanpa takut salah mengetik tanda baca atau sintaks.",
+        tip: "Keunggulan utama blok visual dibandingkan pemrograman tekstual adalah mencegah kesalahan penulisan sintaks (syntax error)."
+      },
+      {
+        no: 19, topicId: 5, level: "2", levelLabel: "Level 2 (C3)", dimension: "Prosedural",
+        indicator: "Disajikan pilihan rute, peserta didik dapat menentukan tindakan agen rasional.",
+        concept: "Agen rasional (acting rationally) selalu mengambil keputusan yang memberikan hasil paling optimal berdasarkan tujuan dan batasan aturan yang ditetapkan.",
+        tip: "Perhatikan dua syarat pada soal: (1) memenuhi batasan aturan (misalnya tanpa tol) dan (2) paling optimal (waktu tempuh tersingkat di antara yang memenuhi syarat)."
+      },
+      {
+        no: 20, topicId: 5, level: "3", levelLabel: "Level 3 (C5)", dimension: "Metakognitif",
+        indicator: "Disajikan kasus robot gudang, peserta didik dapat mengevaluasi alasan tindakan rasional berdasarkan ukuran kinerja.",
+        concept: "Dalam AI rasional, ukuran kinerja (performance measure) sebuah agen cerdas tidak hanya diukur dari kecepatan tunggal, melainkan mencakup keselamatan manusia dan lingkungan sekitar.",
+        tip: "Berhenti sejenak saat ada manusia melintas adalah tindakan paling rasional karena nilai keselamatan jauh lebih tinggi daripada sekadar kecepatan."
+      },
+
+      // Topik 6 (#21-#24)
+      {
+        no: 21, topicId: 6, level: "2", levelLabel: "Level 2 (C3)", dimension: "Prosedural",
+        indicator: "Disajikan kebutuhan pembuatan dokumen, peserta didik dapat menentukan aplikasi perkantoran berdasarkan ciri khas konten.",
+        concept: "Setiap aplikasi perkantoran punya keunggulan spesifik: Pengolah Kata (Word/Docs) untuk teks narasi; Pengolah Lembar Kerja (Excel/Sheets) untuk angka, rumus, dan grafik; Presentasi (PowerPoint/Slides) untuk poin utama.",
+        tip: "Jika stimulus menekankan perhitungan otomatis pemasukan, pengeluaran, dan saldo harian, aplikasi yang paling efisien adalah pengolah lembar kerja."
+      },
+      {
+        no: 22, topicId: 6, level: "2", levelLabel: "Level 2 (C3)", dimension: "Prosedural",
+        indicator: "Disajikan grafik di lembar kerja, peserta didik dapat menentukan cara memindahkan grafik ke aplikasi presentasi.",
+        concept: "Integrasi konten memungkinkan objek grafik yang sudah dihitung dan dibuat di aplikasi lembar kerja disalin (copy-paste) ke salindia presentasi lalu dilengkapi judul yang jelas.",
+        tip: "Hindari mengetik ulang tabel mentah yang penuh angka ke dalam slide; gunakan grafik hasil salinan dari lembar kerja agar ringkas dan komunikatif."
+      },
+      {
+        no: 23, topicId: 6, level: "2", levelLabel: "Level 2 (C3)", dimension: "Prosedural",
+        indicator: "Disajikan langkah pembuatan dokumen multikonten, peserta didik dapat mengurutkan proses analisis hingga pemilihan aplikasi.",
+        concept: "Alur sistematis pembuatan dokumen multikonten: (1) Analisis masalah (produk akhir, target pembaca, tujuan) → (2) Cari alternatif solusi → (3) Pilih solusi dan aplikasi pendukung → (4) Buat dokumen.",
+        tip: "Selalu mulai dari tahap analisis masalah terlebih dahulu dan akhiri dengan tahap pembuatan dokumen."
+      },
+      {
+        no: 24, topicId: 6, level: "3", levelLabel: "Level 3 (C5)", dimension: "Prosedural",
+        indicator: "Disajikan kendala kerja kelompok, peserta didik dapat mengevaluasi pemanfaatan aplikasi perkantoran berbasis cloud.",
+        concept: "Aplikasi perkantoran berbasis cloud (seperti Google Docs, Google Sheets, atau Office 365 web) mendukung kolaborasi real-time pada satu berkas yang sama sehingga versi dokumen selalu seragam.",
+        tip: "Pilih solusi kolaborasi cloud untuk mengatasi masalah berkas tercecer atau perbedaan versi saat bekerja kelompok."
+      },
+
+      // Topik 7 (#25-#28) - TANPA DIAGRAM PENCAR
+      {
+        no: 25, topicId: 7, level: "1", levelLabel: "Level 1 (C2)", dimension: "Konseptual",
+        indicator: "Disajikan data perubahan suhu, peserta didik dapat menentukan jenis grafik untuk data perubahan dari waktu ke waktu.",
+        concept: "Grafik garis (line chart) adalah visualisasi paling tepat untuk menampilkan tren atau pola perubahan nilai data secara berurutan dari waktu ke waktu.",
+        tip: "Jika sumbu mendatarnya berupa satuan waktu berurutan (hari, bulan, tahun) dan ingin dilihat naik-turunnya, pilih grafik garis."
+      },
+      {
+        no: 26, topicId: 7, level: "2", levelLabel: "Level 2 (C3)", dimension: "Prosedural",
+        indicator: "Disajikan data persentase, peserta didik dapat menentukan grafik yang menunjukkan bagian dari keseluruhan.",
+        concept: "Grafik lingkaran (pie chart) digunakan untuk memperlihatkan proporsi atau persentase masing-masing kategori sebagai bagian dari total keseluruhan 100%.",
+        tip: "Kata kunci utama grafik lingkaran adalah 'persentase', 'proporsi', 'komposisi', atau 'bagian dari keseluruhan 100%'."
+      },
+      {
+        no: 27, topicId: 7, level: "2", levelLabel: "Level 2 (C3)", dimension: "Prosedural",
+        indicator: "Disajikan tabel perbandingan data dua kelompok kategori per tahun, peserta didik dapat menentukan jenis grafik yang tepat untuk membandingkan data antargrup.",
+        concept: "Grup diagram batang (clustered column/bar chart) digunakan untuk membandingkan nilai angka dari dua atau lebih kelompok kategori (misalnya laki-laki dan perempuan) secara berdampingan pada tiap periode.",
+        tip: "Jika ada dua kelompok kategori yang dibandingkan langsung di setiap tahun/kelas, pilih grup diagram batang (clustered column chart)."
+      },
+      {
+        no: 28, topicId: 7, level: "3", levelLabel: "Level 3 (C4)", dimension: "Konseptual",
+        indicator: "Disajikan grafik yang kurang tepat, peserta didik dapat menganalisis jenis grafik pengganti yang sesuai.",
+        concept: "Grafik lingkaran tidak cocok untuk data deret waktu dengan banyak periode (misalnya 12 bulan) karena tren perubahan sulit terbaca. Data deret waktu harus diganti dengan grafik garis.",
+        tip: "Periksa jenis datanya: jika datanya urutan 12 bulan untuk melihat perubahan suhu, grafik penggantinya adalah grafik garis."
+      },
+
+      // Topik 8 (#29-#32)
+      {
+        no: 29, topicId: 8, level: "1", levelLabel: "Level 1 (C1)", dimension: "Faktual",
+        indicator: "Disajikan dua ilustrasi, peserta didik dapat menyebutkan perbedaan blog dan vlog.",
+        concept: "Blog (web log) adalah jurnal atau situs daring berisi artikel tulisan (umumnya tersusun kronologis dari postingan terbaru), sedangkan Vlog (video blog) adalah blog yang dikemas dalam bentuk rekaman video.",
+        tip: "Ingat perbedaan media utamanya: Blog berbasis teks/tulisan artikel, sedangkan Vlog berbasis rekaman video."
+      },
+      {
+        no: 30, topicId: 8, level: "3", levelLabel: "Level 3 (C4)", dimension: "Konseptual",
+        indicator: "Disajikan empat kegiatan pembuatan konten, peserta didik dapat mengklasifikasikan konten sebagai blog atau vlog.",
+        concept: "Kegiatan menulis ulasan, panduan bergambar, atau artikel yang diindeks mesin pencari termasuk Blog. Kegiatan merekam aktivitas dengan narasi suara dan gambar bergerak termasuk Vlog.",
+        tip: "Cermati kata kerja pada setiap poin pernyataan: 'menulis ulasan/panduan' = Blog, sedangkan 'merekam perjalanan/proses' = Vlog."
+      },
+      {
+        no: 31, topicId: 8, level: "2", levelLabel: "Level 2 (C3)", dimension: "Prosedural",
+        indicator: "Disajikan masalah kualitas rekaman vlog, peserta didik dapat menentukan teknik merekam yang tepat.",
+        concept: "Teknik merekam vlog dengan smartphone agar berkualitas: pegang ponsel dengan dua tangan agar stabil, dekati objek tanpa memakai zoom digital (agar tidak pecah), dan pastikan jari tidak menutupi lubang mikrofon.",
+        tip: "Hindari penggunaan zoom digital saat merekam video dengan ponsel karena hanya memperbesar piksel dan membuat gambar kabur."
+      },
+      {
+        no: 32, topicId: 8, level: "3", levelLabel: "Level 3 (C6)", dimension: "Metakognitif",
+        indicator: "Disajikan kebutuhan publikasi sekolah, peserta didik dapat merancang strategi memadukan blog dan vlog.",
+        concept: "Blog dan vlog dapat dipadukan secara sinergis: laporan lengkap dan arsip dokumen ditulis di blog agar mudah dicari, sedangkan vlog ringkas yang menarik ditautkan ke blog tersebut tanpa membocorkan data pribadi.",
+        tip: "Pilih strategi yang menggabungkan kelebihan keduanya sekaligus tetap menjaga keamanan data pribadi (privasi) siswa."
+      },
+
+      // Topik 9 (#33-#36)
+      {
+        no: 33, topicId: 9, level: "1", levelLabel: "Level 1 (C2)", dimension: "Konseptual",
+        indicator: "Disajikan perbandingan aktivitas menggunakan Scratch dan Blockly, peserta didik dapat menjelaskan perbedaan utama keduanya.",
+        concept: "Scratch adalah pemrograman visual berbasis kejadian (event-driven) yang dirancang untuk animasi, cerita, dan permainan interaktif, sedangkan Blockly menerapkan teknik pemrograman prosedural (urutan langkah Input–Proses–Output).",
+        tip: "Pasangan kata kunci: Scratch = interaktif berbasis event (kejadian); Blockly = urutan langkah prosedural."
+      },
+      {
+        no: 34, topicId: 9, level: "2", levelLabel: "Level 2 (C3)", dimension: "Prosedural",
+        indicator: "Disajikan skrip Scratch sederhana berisi blok perulangan dan gerak, peserta didik dapat menentukan hasil akhir eksekusi skrip.",
+        concept: "Blok 'ulangi N kali' akan menjalankan semua perintah di dalamnya sebanyak N kali secara berurutan sebelum melanjutkan ke blok di bawah perulangan.",
+        tip: "Kalikan jumlah perulangan dengan jumlah langkah maju di dalamnya, lalu perhatikan blok perintah terakhir yang berada di luar perulangan."
+      },
+      {
+        no: 35, topicId: 9, level: "2", levelLabel: "Level 2 (C3)", dimension: "Prosedural",
+        indicator: "Disajikan program Blockly sederhana dengan variabel, perulangan, dan percabangan, peserta didik dapat menentukan keluaran program.",
+        concept: "Penelusuran (tracing) program dilakukan dengan mencatat nilai awal variabel, menghitung perubahan nilai di dalam blok repeat, lalu menguji syarat kondisi pada blok if-else.",
+        tip: "Hitung nilai akhir variabel setelah perulangan selesai terlebih dahulu, baru cek apakah syarat 'if' bernilai benar atau salah (Coba di Lab 4!)."
+      },
+      {
+        no: 36, topicId: 9, level: "3", levelLabel: "Level 3 (C4)", dimension: "Prosedural",
+        indicator: "Disajikan skrip Scratch sederhana yang gerakannya tidak berulang sesuai harapan, peserta didik dapat menganalisis penyebab kesalahan dan perbaikannya.",
+        concept: "Debugging adalah proses mencari dan memperbaiki kesalahan logika program. Blok perintah yang diletakkan di luar blok 'selamanya' (forever) hanya akan dijalankan satu kali saja.",
+        tip: "Periksa posisi lekukan blok 'selamanya': perintah gerak harus berada di dalam mulut blok 'selamanya' agar terus berulang."
+      },
+
+      // Topik 10 (#37-#40)
+      {
+        no: 37, topicId: 10, level: "1", levelLabel: "Level 1 (C1)", dimension: "Faktual",
+        indicator: "Disajikan proyek animasi, peserta didik dapat menyebutkan peran sprite dan stage.",
+        concept: "Dalam Scratch, Sprite adalah objek atau karakter yang dapat diberi kode perintah untuk bergerak/bersuara, sedangkan Stage adalah area panggung atau latar tempat sprite beraksi.",
+        tip: "Ingat perumpamaan wayang: wayangnya (karakter) = Sprite, panggung/layar belakangnya = Stage."
+      },
+      {
+        no: 38, topicId: 10, level: "2", levelLabel: "Level 2 (C3)", dimension: "Prosedural",
+        indicator: "Disajikan skrip yang belum lengkap, peserta didik dapat menentukan blok untuk mengganti latar.",
+        concept: "Untuk mengubah tampilan latar belakang panggung (backdrop) di Scratch digunakan blok 'ganti latar menjadi [...]' (switch backdrop to), bukan 'ganti kostum' (yang hanya mengubah wujud sprite).",
+        tip: "Bedakan istilah 'latar' (backdrop untuk panggung) dengan 'kostum' (costume untuk perubahan wujud karakter sprite)."
+      },
+      {
+        no: 39, topicId: 10, level: "2", levelLabel: "Level 2 (C3)", dimension: "Prosedural",
+        indicator: "Disajikan skrip event dan gerak, peserta didik dapat memprediksi hasil eksekusi.",
+        concept: "Pada koordinat panggung Scratch, sumbu X mengatur gerak mendatar (kanan positif, kiri negatif), sedangkan sumbu Y mengatur gerak vertikal (atas positif, bawah negatif).",
+        tip: "Ubah y positif (+50) membuat sprite naik ke atas, jeda tunggu menahan posisi sebentar, lalu ubah y negatif (-50) menurunkannya kembali seperti melompat."
+      },
+      {
+        no: 40, topicId: 10, level: "3", levelLabel: "Level 3 (C6)", dimension: "Metakognitif",
+        indicator: "Disajikan rancangan animasi bola memantul sederhana di Scratch, peserta didik dapat merancang susunan blok kode yang tepat.",
+        concept: "Animasi bola memantul membutuhkan perulangan terus-menerus ('selamanya') yang di dalamnya berisi gerak maju dan pengecekan kondisi 'jika menyentuh dinding maka putar 180 derajat dan mainkan suara'.",
+        tip: "Pastikan baik perintah maju maupun pengecekan sentuhan dinding keduanya berada di dalam blok perulangan 'selamanya'."
+      }
+    ];
+
+    // =========================================================================
+    // 2. DATA 10 SOAL KUIS LATIHAN BARU (1 SOAL PER TOPIK)
+    // =========================================================================
+    const QUIZ_QUESTIONS = [
+      {
+        id: 1, topicId: 1, relatedNo: "#1",
+        question: "Saat merancang proyek pengelolaan Bank Sampah Digital sekolah, ketua kelompok membagi pekerjaan menjadi tiga sub-tugas terpisah: (1) pencatatan anggota, (2) perhitungan harga sampah, dan (3) pembuatan grafik laporan. Penerapan pilar berpikir komputasional tersebut adalah ....",
+        options: [
+          "Abstraksi, karena menyaring data sampah yang tidak diperlukan",
+          "Dekomposisi, karena memecah proyek besar menjadi bagian-bagian kecil",
+          "Pengenalan pola, karena melihat persamaan berat sampah tiap kelas",
+          "Algoritma, karena menuliskan rumus perhitungan di aplikasi pengolah angka"
+        ],
+        answer: 1,
+        explanation: "Memecah masalah atau proyek besar menjadi beberapa sub-tugas yang lebih kecil dan mudah dikelola merupakan penerapan pilar Dekomposisi (Indikator #1)."
+      },
+      {
+        id: 2, topicId: 2, relatedNo: "#7 & #8",
+        question: "Pada struktur data Tree penyimpanan folder sekolah, folder utama [Sekolah] memiliki dua subfolder yaitu [Kelas_IX] dan [OSIS]. Di dalam [Kelas_IX] terdapat file Jadwal.pdf dan Nilai.xlsx, sedangkan [OSIS] tidak memiliki isi lagi. Banyaknya simpul daun (leaf) pada struktur Tree tersebut adalah ....",
+        options: [
+          "1 leaf (yaitu folder [Sekolah])",
+          "2 leaf (yaitu [Kelas_IX] dan [OSIS])",
+          "3 leaf (yaitu Jadwal.pdf, Nilai.xlsx, dan [OSIS])",
+          "4 leaf (semua folder dan file kecuali [Sekolah])"
+        ],
+        answer: 2,
+        explanation: "Leaf (daun) adalah simpul ujung yang tidak memiliki cabang/anak lagi di bawahnya, yaitu Jadwal.pdf, Nilai.xlsx, dan folder [OSIS] yang kosong (Indikator #7 & #8)."
+      },
+      {
+        id: 3, topicId: 3, relatedNo: "#13",
+        question: "Sinta dan Tari sama-sama sering mendengarkan lagu bertema akustik dan musik daerah di aplikasi pemutar musik daring. Ketika Sinta menyukai sebuah lagu daerah baru yang belum pernah didengar Tari, sistem AI langsung merekomendasikan lagu tersebut kepada Tari. Cara kerja sistem tersebut didasarkan pada ....",
+        options: [
+          "kemiripan selera mendengarkan musik antara Sinta dan Tari sebelumnya",
+          "ukuran file audio lagu daerah yang paling kecil di server",
+          "pemilihan lagu secara acak tanpa melihat riwayat pemutaran pengguna",
+          "kesamaan jenis ponsel pintar yang digunakan oleh Sinta dan Tari"
+        ],
+        answer: 0,
+        explanation: "Sistem rekomendasi memanfaatkan kemiripan preferensi/selera antarpengguna (collaborative filtering) untuk memprediksi konten yang disukai pengguna lain (Indikator #13)."
+      },
+      {
+        id: 4, topicId: 4, relatedNo: "#17",
+        question: "Nisa menggunakan aplikasi Kecerdasan Artifisial (KA) generatif untuk mencari ide pidato perpisahan kelas IX. Sikap yang paling mencerminkan literasi digital yang kritis dan bertanggung jawab adalah ....",
+        options: [
+          "menyalin seluruh teks hasil KA tanpa dibaca ulang agar cepat selesai",
+          "memeriksa kebenaran isi teks dari KA lalu menyuntingnya kembali sesuai gaya bahasa sendiri",
+          "mengakui bahwa seluruh tulisan dari KA merupakan karya murni tanpa bantuan teknologi",
+          "menolak menggunakan teknologi digital sama sekali dalam pembelajaran"
+        ],
+        answer: 1,
+        explanation: "KA harus dimanfaatkan sebagai alat bantu berpikir; pengguna tetap wajib memverifikasi informasi dan mengolahnya kembali dengan kreativitas sendiri (Indikator #17)."
+      },
+      {
+        id: 5, topicId: 5, relatedNo: "#19 & #20",
+        question: "Sebuah drone pengantar obat diprogram untuk mengirimkan paket medis secepat mungkin tanpa melewati area larangan terbang. Di tengah perjalanan, sensor mendeteksi angin kencang berbahaya di jalur tercepat sehingga drone memutar lewat jalur aman yang sedikit lebih lama. Tindakan drone tersebut tetap dinilai rasional karena ....",
+        options: [
+          "drone meniru cara burung terbang saat cuaca cerah",
+          "agen rasional memaksimalkan kinerja menyeluruh termasuk keselamatan paket dan aturan larangan terbang",
+          "drone mengalami kerusakan sistem navigasi sehingga salah arah",
+          "agen rasional selalu memilih rute dengan jarak tempuh paling panjang"
+        ],
+        answer: 1,
+        explanation: "Agen rasional mengambil keputusan terbaik berdasarkan ukuran kinerja menyeluruh yang mencakup kepatuhan aturan serta keselamatan (Indikator #19 & #20)."
+      },
+      {
+        id: 6, topicId: 6, relatedNo: "#21 & #22",
+        question: "Panitia pentas seni sekolah perlu menghitung rincian anggaran pemasukan tiket, pengeluaran dekorasi, serta membuat grafik perbandingan dana tiap seksi untuk ditampilkan pada salindia rapat. Perpaduan aplikasi perkantoran yang paling efisien adalah ....",
+        options: [
+          "mengolah angka dan membuat grafik di pengolah lembar kerja, lalu menyalin grafiknya ke aplikasi presentasi",
+          "menghitung seluruh anggaran secara manual lalu mengetiknya di aplikasi pengolah gambar",
+          "memasukkan ratusan baris tabel mentah ke dalam satu halaman aplikasi pengolah kata",
+          "mengubah berkas dokumen teks menjadi berkas audio sebelum rapat dimulai"
+        ],
+        answer: 0,
+        explanation: "Pengolah lembar kerja unggul dalam kalkulasi numerik dan pembuatan grafik, sedangkan aplikasi presentasi efektif untuk menyajikan grafik ringkas saat rapat (Indikator #21 & #22)."
+      },
+      {
+        id: 7, topicId: 7, relatedNo: "#27 & #28",
+        question: "Perpustakaan SMPN 4 Ciamis mencatat jumlah peminjam buku fiksi dan nonfiksi setiap semester selama tiga tahun terakhir untuk dibandingkan secara berdampingan. Jenis grafik yang paling tepat digunakan adalah ....",
+        options: [
+          "grafik lingkaran tunggal",
+          "grup diagram batang (clustered column chart)",
+          "grafik donat 3D",
+          "diagram pohon (tree)"
+        ],
+        answer: 1,
+        explanation: "Grup diagram batang (clustered column chart) dirancang khusus untuk membandingkan nilai dari dua atau lebih kelompok kategori (fiksi dan nonfiksi) pada tiap periode waktu (Indikator #27)."
+      },
+      {
+        id: 8, topicId: 8, relatedNo: "#31 & #32",
+        question: "Untuk mendokumentasikan kegiatan lomba kebersihan kelas, pengurus OSIS ingin tulisan rincian aturan dan hasil penilaian mudah dicari orang tua lewat mesin pencari, sementara siswa dapat menonton cuplikan keseruan lomba secara singkat. Strategi terbaiknya adalah ....",
+        options: [
+          "membuat vlog berdurasi dua jam penuh tanpa keterangan teks apa pun",
+          "menulis artikel lengkap di blog sekolah dan membuat vlog singkat yang menyertakan tautan ke blog",
+          "membagikan nomor telepon dan alamat rumah seluruh siswa di kolom komentar vlog",
+          "merekam vlog menggunakan zoom digital maksimal sambil memegang ponsel satu tangan"
+        ],
+        answer: 1,
+        explanation: "Memadukan laporan lengkap di blog dengan video ringkas di vlog (disertai tautan) memenuhi kebutuhan informasi mendalam dan visual tanpa melanggar privasi (Indikator #31 & #32)."
+      },
+      {
+        id: 9, topicId: 9, relatedNo: "#35",
+        question: "Perhatikan urutan blok program Blockly berikut: [set skor to 5] → [repeat 4 times do: change skor by 5] → [if skor >= 25 do cetak 'Hebat' else do cetak 'Berlatih Lagi']. Keluaran yang tercetak adalah ....",
+        options: [
+          "skor menjadi 20 sehingga mencetak 'Berlatih Lagi'",
+          "skor menjadi 25 sehingga mencetak 'Hebat'",
+          "skor menjadi 9 sehingga mencetak 'Berlatih Lagi'",
+          "skor menjadi 25 tetapi program tidak mencetak teks apa pun"
+        ],
+        answer: 1,
+        explanation: "Nilai awal skor = 5. Setelah ditambah 5 sebanyak 4 kali (5 + 20 = 25), syarat kondisi skor >= 25 bernilai benar sehingga mencetak 'Hebat' (Indikator #35)."
+      },
+      {
+        id: 10, topicId: 10, relatedNo: "#38 & #39",
+        question: "Pada proyek animasi Scratch, Raka ingin karakter kelinci melompat ke atas lalu turun kembali ke tanah setiap kali tombol spasi ditekan, sekaligus mengubah latar panggung menjadi 'hutan'. Blok perintah yang tepat digunakan secara berurutan adalah ....",
+        options: [
+          "ubah x oleh 40, tunggu 0,2 detik, ubah x oleh -40, dan ganti kostum menjadi [hutan]",
+          "ubah y oleh 40, tunggu 0,2 detik, ubah y oleh -40, dan ganti latar menjadi [hutan]",
+          "putar 180 derajat, maju 10 langkah, dan sembunyikan sprite",
+          "hentikan semua skrip dan ubah ukuran sprite sebesar -40"
+        ],
+        answer: 1,
+        explanation: "Gerak naik-turun menggunakan perubahan sumbu vertikal Y (+40 lalu -40), sedangkan penggantian latar panggung memakai blok 'ganti latar menjadi [hutan]' (Indikator #38 & #39)."
+      }
+    ];
+
+    // =========================================================================
+    // 3. STATE & LOCALSTORAGE MANAGEMENT
+    // =========================================================================
+    const STORAGE_KEY_MASTERED = 'psas_inf9_smpn4ciamis_mastered_v1';
+    const STORAGE_KEY_QUIZ = 'psas_inf9_smpn4ciamis_quiz_v1';
+
+    let masteredSet = new Set(JSON.parse(localStorage.getItem(STORAGE_KEY_MASTERED) || '[]'));
+    let quizAnswers = JSON.parse(localStorage.getItem(STORAGE_KEY_QUIZ) || '{}');
+    let currentLevelFilter = 'all';
+    let expandedTips = new Set();
+
+    function saveState() {
+      localStorage.setItem(STORAGE_KEY_MASTERED, JSON.stringify([...masteredSet]));
+      localStorage.setItem(STORAGE_KEY_QUIZ, JSON.stringify(quizAnswers));
+      updateProgressUI();
+    }
+
+    // =========================================================================
+    // 4. NAVIGASI TAB UTAMA
+    // =========================================================================
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.getElementById(tabId).classList.remove('hidden');
+
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('bg-white', 'text-sky-900', 'shadow-sm');
+        btn.classList.add('bg-white/10', 'text-white');
+      });
+      const activeBtn = document.getElementById('btn-' + tabId);
+      activeBtn.classList.remove('bg-white/10', 'text-white');
+      activeBtn.classList.add('bg-white', 'text-sky-900', 'shadow-sm');
+    }
+
+    // =========================================================================
+    // 5. RENDER TAB 1: PETA KISI-KISI & PROGRESS BAR
+    // =========================================================================
+    function setLevelFilter(lvl) {
+      currentLevelFilter = lvl;
+      document.querySelectorAll('.lvl-btn').forEach(btn => {
+        btn.classList.remove('bg-teal-700', 'text-white');
+        btn.classList.add('bg-slate-100', 'text-slate-700');
+      });
+      const active = document.getElementById('lvl-' + lvl);
+      active.classList.remove('bg-slate-100', 'text-slate-700');
+      active.classList.add('bg-teal-700', 'text-white');
+      renderIndicators();
+    }
+
+    function toggleMastered(no) {
+      if (masteredSet.has(no)) {
+        masteredSet.delete(no);
+      } else {
+        masteredSet.add(no);
+      }
+      saveState();
+      renderIndicators();
+    }
+
+    function toggleTip(no) {
+      if (expandedTips.has(no)) {
+        expandedTips.delete(no);
+      } else {
+        expandedTips.add(no);
+      }
+      const box = document.getElementById('tip-box-' + no);
+      const icon = document.getElementById('tip-icon-' + no);
+      if (box) {
+        box.classList.toggle('hidden');
+        icon.classList.toggle('rotate-180');
+      }
+    }
+
+    function expandAllTips(open) {
+      if (open) {
+        INDICATORS.forEach(item => expandedTips.add(item.no));
+      } else {
+        expandedTips.clear();
+      }
+      renderIndicators();
+    }
+
+    function updateProgressUI() {
+      const count = masteredSet.size;
+      const total = INDICATORS.length;
+      const pct = Math.round((count / total) * 100);
+
+      document.getElementById('headerProgressText').textContent = `${pct}% (${count}/${total} Indikator)`;
+      document.getElementById('mainProgressPercent').textContent = `${pct}%`;
+      document.getElementById('mainProgressBar').style.width = `${pct}%`;
+      document.getElementById('mainProgressCount').textContent = `${count} dari ${total} indikator dikuasai`;
+
+      const motEl = document.getElementById('progressMotivation');
+      if (pct === 0) motEl.textContent = "Ayo mulai belajar!";
+      else if (pct < 40) motEl.textContent = "Langkah awal yang bagus!";
+      else if (pct < 80) motEl.textContent = "Terus pertahankan semangatmu!";
+      else if (pct < 100) motEl.textContent = "Sedikit lagi tuntas semua!";
+      else motEl.textContent = "Luar biasa! Siap 100% PSAS!";
+    }
+
+    function getLevelBadgeStyle(lvl) {
+      if (lvl === "1") return "bg-emerald-100 text-emerald-800 border-emerald-200";
+      if (lvl === "2") return "bg-amber-100 text-amber-800 border-amber-200";
+      return "bg-rose-100 text-rose-800 border-rose-200";
+    }
+
+    function renderIndicators() {
+      const topicFilter = document.getElementById('filterTopic').value;
+      const searchQuery = document.getElementById('searchInput').value.trim().toLowerCase();
+      const onlyUnmastered = document.getElementById('filterUnmastered').checked;
+
+      const filtered = INDICATORS.filter(item => {
+        if (topicFilter !== 'all' && String(item.topicId) !== topicFilter) return false;
+        if (currentLevelFilter !== 'all' && item.level !== currentLevelFilter) return false;
+        if (onlyUnmastered && masteredSet.has(item.no)) return false;
+        if (searchQuery) {
+          const hay = `${item.no} ${item.indicator} ${item.concept} ${item.tip} ${item.dimension}`.toLowerCase();
+          if (!hay.includes(searchQuery)) return false;
+        }
+        return true;
+      });
+
+      document.getElementById('filterResultInfo').textContent = `Menampilkan ${filtered.length} dari 40 indikator soal`;
+      const container = document.getElementById('indicatorsContainer');
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="bg-white rounded-2xl p-8 text-center border border-slate-200">
+            <i class="fa-solid fa-folder-open text-4xl text-slate-300 mb-3"></i>
+            <p class="font-bold text-slate-700">Tidak ada indikator yang cocok dengan filter pencarianmu.</p>
+            <button onclick="resetFilters()" class="mt-3 px-4 py-2 rounded-xl bg-teal-600 text-white text-xs font-bold hover:bg-teal-700 transition">Tampilkan Semua Indikator</button>
+          </div>
+        `;
+        return;
+      }
+
+      // Kelompokkan berdasarkan topik
+      let html = '';
+      TOPICS.forEach(topic => {
+        const itemsInTopic = filtered.filter(i => i.topicId === topic.id);
+        if (itemsInTopic.length === 0) return;
+
+        const masteredInTopic = INDICATORS.filter(i => i.topicId === topic.id && masteredSet.has(i.no)).length;
+        const totalInTopic = INDICATORS.filter(i => i.topicId === topic.id).length;
+
+        html += `
+          <div class="space-y-3">
+            <div class="flex flex-wrap items-center justify-between gap-2 bg-slate-800 text-white px-4 py-3 rounded-2xl shadow-xs">
+              <div class="flex items-center gap-2.5">
+                <span class="w-8 h-8 rounded-xl bg-teal-500/20 border border-teal-400/30 flex items-center justify-center text-teal-300">
+                  <i class="fa-solid ${topic.icon}"></i>
+                </span>
+                <div>
+                  <h3 class="font-extrabold text-sm sm:text-base leading-snug">${topic.title}</h3>
+                  <span class="text-xs text-slate-300">Cakupan Soal: ${topic.range}</span>
+                </div>
+              </div>
+              <span class="text-xs font-bold bg-white/15 px-3 py-1 rounded-full">
+                Dikuasai: ${masteredInTopic}/${totalInTopic}
+              </span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+              ${itemsInTopic.map(item => {
+                const isDone = masteredSet.has(item.no);
+                const isOpen = expandedTips.has(item.no);
+                return `
+                  <div class="bg-white rounded-2xl p-4 shadow-xs border-2 transition ${isDone ? 'border-emerald-400 bg-emerald-50/20' : 'border-slate-200 hover:border-sky-300'} flex flex-col justify-between">
+                    <div>
+                      <div class="flex items-center justify-between gap-2 mb-2.5">
+                        <div class="flex flex-wrap items-center gap-1.5">
+                          <span class="px-2.5 py-1 rounded-lg bg-sky-900 text-white font-extrabold text-xs">Soal #${item.no}</span>
+                          <span class="px-2.5 py-1 rounded-lg border text-xs font-bold ${getLevelBadgeStyle(item.level)}">${item.levelLabel}</span>
+                          <span class="px-2.5 py-1 rounded-lg bg-slate-100 text-slate-600 text-xs font-semibold">${item.dimension}</span>
+                        </div>
+                        <button onclick="toggleMastered(${item.no})" class="px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shrink-0 ${isDone ? 'bg-emerald-600 text-white shadow-xs' : 'bg-slate-100 text-slate-600 hover:bg-emerald-100 hover:text-emerald-800'}">
+                          <i class="fa-solid ${isDone ? 'fa-circle-check' : 'fa-circle'}"></i>
+                          <span>${isDone ? 'Sudah Paham' : 'Tandai Paham'}</span>
+                        </button>
+                      </div>
+                      <p class="text-sm text-slate-800 font-medium leading-relaxed">${item.indicator}</p>
+                    </div>
+
+                    <div class="mt-3 pt-2.5 border-t border-slate-100">
+                      <button onclick="toggleTip(${item.no})" class="w-full flex items-center justify-between text-xs font-bold text-teal-700 hover:text-teal-900 py-1">
+                        <span><i class="fa-solid fa-lightbulb text-amber-500 mr-1.5"></i>Bedah Konsep & Tips Menjawab</span>
+                        <i id="tip-icon-${item.no}" class="fa-solid fa-chevron-down transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}"></i>
+                      </button>
+                      <div id="tip-box-${item.no}" class="${isOpen ? '' : 'hidden'} mt-2 bg-sky-50/80 border border-sky-200 rounded-xl p-3 text-xs space-y-1.5 text-slate-700">
+                        <p><strong class="text-sky-900">Konsep Inti:</strong> ${item.concept}</p>
+                        <p><strong class="text-teal-800">Tips Ujian:</strong> ${item.tip}</p>
+                      </div>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+        `;
+      });
+
+      container.innerHTML = html;
+    }
+
+    function resetFilters() {
+      document.getElementById('filterTopic').value = 'all';
+      document.getElementById('searchInput').value = '';
+      document.getElementById('filterUnmastered').checked = false;
+      setLevelFilter('all');
+    }
+
+    // =========================================================================
+    // 6. LAB SIMULASI INTERAKTIF (4 MINI-LAB)
+    // =========================================================================
+    function switchLab(labId) {
+      document.querySelectorAll('.lab-panel').forEach(p => p.classList.add('hidden'));
+      document.getElementById(labId).classList.remove('hidden');
+
+      document.querySelectorAll('.lab-nav-btn').forEach(btn => {
+        btn.classList.remove('border-2', 'border-teal-600', 'bg-teal-50', 'text-teal-900');
+        btn.classList.add('border', 'border-slate-200', 'bg-slate-50', 'text-slate-700');
+      });
+      const active = document.getElementById('btn-' + labId);
+      active.classList.remove('border', 'border-slate-200', 'bg-slate-50', 'text-slate-700');
+      active.classList.add('border-2', 'border-teal-600', 'bg-teal-50', 'text-teal-900');
+    }
+
+    // --- LAB 1: XOR ---
+    // 1 = Hitam (H), 0 = Putih (P) -> sesuai contoh soal #4: (H,P,H | P,H,P) & (P,P,H | H,H,H)
+    let xorA = [1, 0, 1, 0, 1, 0];
+    let xorB = [0, 0, 1, 1, 1, 1];
+
+    function resetXorPreset() {
+      xorA = [1, 0, 1, 0, 1, 0];
+      xorB = [0, 0, 1, 1, 1, 1];
+      renderXorBoards();
+    }
+
+    function toggleXorCell(board, idx) {
+      if (board === 'A') xorA[idx] = xorA[idx] ? 0 : 1;
+      else xorB[idx] = xorB[idx] ? 0 : 1;
+      renderXorBoards();
+    }
+
+    function renderXorBoards() {
+      const elA = document.getElementById('xorBoardA');
+      const elB = document.getElementById('xorBoardB');
+      const elR = document.getElementById('xorBoardResult');
+
+      let htmlA = '', htmlB = '', htmlR = '', blackCount = 0;
+
+      for (let i = 0; i < 6; i++) {
+        const isBlackA = xorA[i] === 1;
+        const isBlackB = xorB[i] === 1;
+        const isBlackR = (xorA[i] !== xorB[i]); // Logika XOR
+        if (isBlackR) blackCount++;
+
+        htmlA += `<button onclick="toggleXorCell('A', ${i})" class="h-14 rounded-xl font-extrabold text-sm border-2 transition shadow-xs ${isBlackA ? 'bg-slate-900 text-white border-slate-900' : 'bg-white text-slate-800 border-slate-300 hover:bg-slate-100'}">${isBlackA ? 'H' : 'P'}</button>`;
+        htmlB += `<button onclick="toggleXorCell('B', ${i})" class="h-14 rounded-xl font-extrabold text-sm border-2 transition shadow-xs ${isBlackB ? 'bg-slate-900 text-white border-slate-900' : 'bg-white text-slate-800 border-slate-300 hover:bg-slate-100'}">${isBlackB ? 'H' : 'P'}</button>`;
+        htmlR += `<div class="h-14 rounded-xl font-extrabold text-sm border-2 flex items-center justify-center ${isBlackR ? 'bg-slate-900 text-amber-300 border-slate-900' : 'bg-white text-slate-500 border-teal-300'}">${isBlackR ? 'H' : 'P'}</div>`;
+      }
+
+      elA.innerHTML = htmlA;
+      elB.innerHTML = htmlB;
+      elR.innerHTML = htmlR;
+      document.getElementById('xorBlackCount').textContent = blackCount;
+    }
+
+    // --- LAB 2: TREE EXPLORER ---
+    const TREE_DATA = {
+      Dokumen: { role: "Root (Akar)", edges: 0, path: "Dokumen (Titik awal akar)", desc: "Simpul paling atas yang menjadi induk utama seluruh folder." },
+      Tugas: { role: "Parent / Internal Node", edges: 1, path: "Dokumen → Tugas", desc: "Memiliki induk Dokumen serta memiliki 2 anak (Matematika & Informatika)." },
+      Foto: { role: "Parent / Internal Node", edges: 1, path: "Dokumen → Foto", desc: "Memiliki induk Dokumen serta memiliki 2 anak (Liburan & Keluarga)." },
+      Matematika: { role: "Leaf (Daun)", edges: 2, path: "Dokumen → Tugas → Matematika", desc: "Tidak memiliki subfolder lagi di bawahnya sehingga termasuk Leaf." },
+      Informatika: { role: "Leaf (Daun)", edges: 2, path: "Dokumen → Tugas → Informatika", desc: "Tidak memiliki subfolder lagi di bawahnya sehingga termasuk Leaf." },
+      Liburan: { role: "Parent / Internal Node", edges: 2, path: "Dokumen → Foto → Liburan", desc: "Bukan Leaf karena masih memiliki 1 simpul anak di bawahnya yaitu Bali." },
+      Keluarga: { role: "Leaf (Daun)", edges: 2, path: "Dokumen → Foto → Keluarga", desc: "Tidak memiliki subfolder lagi di bawahnya sehingga termasuk Leaf." },
+      Bali: { role: "Leaf (Daun)", edges: 3, path: "Dokumen → Foto → Liburan → Bali", desc: "Simpul ujung terdalam dengan 3 garis penghubung (edge) dari Dokumen." }
+    };
+
+    function selectTreeNode(name) {
+      const info = TREE_DATA[name];
+      document.getElementById('treeInfoBox').innerHTML = `
+        <strong class="text-teal-800">Simpul Terpilih: ${name}</strong> — Status: <strong>${info.role}</strong>.<br>
+        Jalur dari akar: <code>${info.path}</code> (<strong>${info.edges} edge</strong>). ${info.desc}
+      `;
+    }
+
+    // --- LAB 3: PEMILIH GRAFIK CERDAS (TANPA DIAGRAM PENCAR) ---
+    function selectChartCase(type) {
+      document.querySelectorAll('.chart-case-btn').forEach(btn => {
+        btn.classList.remove('border-2', 'border-teal-600', 'bg-teal-50');
+        btn.classList.add('border', 'border-slate-200', 'bg-slate-50');
+      });
+      const active = document.getElementById('chart-btn-' + type);
+      active.classList.remove('border', 'border-slate-200', 'bg-slate-50');
+      active.classList.add('border-2', 'border-teal-600', 'bg-teal-50');
+
+      const area = document.getElementById('chartDisplayArea');
+      if (type === 'line') {
+        area.innerHTML = `
+          <div class="lg:col-span-5 space-y-2">
+            <span class="px-3 py-1 rounded-full bg-sky-100 text-sky-800 text-xs font-extrabold">Rekomendasi: Grafik Garis (Line Chart)</span>
+            <h4 class="text-base font-extrabold text-slate-800">Mengapa Grafik Garis?</h4>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Karena data berbentuk <strong>deret waktu berurutan</strong> (hari ke-1 sampai hari ke-7 atau bulan Januari–Desember). Garis penghubung antartitik memudahkan pembaca melihat <strong>tren kenaikan dan penurunan</strong> secara cepat.
+            </p>
+          </div>
+          <div class="lg:col-span-7 bg-white p-4 rounded-xl border border-slate-200">
+            <svg viewBox="0 0 360 150" class="w-full h-auto">
+              <line x1="35" y1="125" x2="340" y2="125" stroke="#94a3b8" stroke-width="1.5"/>
+              <line x1="35" y1="20" x2="35" y2="125" stroke="#94a3b8" stroke-width="1.5"/>
+              <polyline fill="none" stroke="#0284c7" stroke-width="3" points="50,95 95,80 140,85 185,55 230,40 275,65 320,35"/>
+              <circle cx="50" cy="95" r="4" fill="#0369a1"/><circle cx="95" cy="80" r="4" fill="#0369a1"/>
+              <circle cx="140" cy="85" r="4" fill="#0369a1"/><circle cx="185" cy="55" r="4" fill="#0369a1"/>
+              <circle cx="230" cy="40" r="4" fill="#0369a1"/><circle cx="275" cy="65" r="4" fill="#0369a1"/>
+              <circle cx="320" cy="35" r="4" fill="#0369a1"/>
+              <text x="50" y="140" font-size="10" text-anchor="middle" fill="#475569">Sen</text>
+              <text x="95" y="140" font-size="10" text-anchor="middle" fill="#475569">Sel</text>
+              <text x="140" y="140" font-size="10" text-anchor="middle" fill="#475569">Rab</text>
+              <text x="185" y="140" font-size="10" text-anchor="middle" fill="#475569">Kam</text>
+              <text x="230" y="140" font-size="10" text-anchor="middle" fill="#475569">Jum</text>
+              <text x="275" y="140" font-size="10" text-anchor="middle" fill="#475569">Sab</text>
+              <text x="320" y="140" font-size="10" text-anchor="middle" fill="#475569">Min</text>
+            </svg>
+          </div>
+        `;
+      } else if (type === 'pie') {
+        area.innerHTML = `
+          <div class="lg:col-span-5 space-y-2">
+            <span class="px-3 py-1 rounded-full bg-amber-100 text-amber-800 text-xs font-extrabold">Rekomendasi: Grafik Lingkaran (Pie Chart)</span>
+            <h4 class="text-base font-extrabold text-slate-800">Mengapa Grafik Lingkaran?</h4>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Karena data menyatakan <strong>persentase bagian dari keseluruhan 100%</strong> dengan jumlah kategori yang ringkas (4 jenis ekstrakurikuler), sehingga porsi terbesar hingga terkecil langsung terlihat dari luas juringnya.
+            </p>
+          </div>
+          <div class="lg:col-span-7 bg-white p-4 rounded-xl border border-slate-200 flex flex-col sm:flex-row items-center justify-center gap-6">
+            <svg viewBox="0 0 140 140" class="w-36 h-36 shrink-0">
+              <circle r="35" cx="70" cy="70" fill="transparent" stroke="#0284c7" stroke-width="70" stroke-dasharray="88 220" transform="rotate(-90 70 70)"/>
+              <circle r="35" cx="70" cy="70" fill="transparent" stroke="#0d9488" stroke-width="70" stroke-dasharray="55 220" stroke-dashoffset="-88" transform="rotate(-90 70 70)"/>
+              <circle r="35" cx="70" cy="70" fill="transparent" stroke="#f59e0b" stroke-width="70" stroke-dasharray="44 220" stroke-dashoffset="-143" transform="rotate(-90 70 70)"/>
+              <circle r="35" cx="70" cy="70" fill="transparent" stroke="#e11d48" stroke-width="70" stroke-dasharray="33 220" stroke-dashoffset="-187" transform="rotate(-90 70 70)"/>
+            </svg>
+            <div class="text-xs space-y-1.5 font-semibold text-slate-700">
+              <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-xs bg-sky-600 inline-block"></span> Pramuka (40%)</div>
+              <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-xs bg-teal-600 inline-block"></span> Basket (25%)</div>
+              <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-xs bg-amber-500 inline-block"></span> Paduan Suara (20%)</div>
+              <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-xs bg-rose-600 inline-block"></span> Futsal (15%)</div>
+            </div>
+          </div>
+        `;
+      } else {
+        area.innerHTML = `
+          <div class="lg:col-span-5 space-y-2">
+            <span class="px-3 py-1 rounded-full bg-teal-100 text-teal-800 text-xs font-extrabold">Rekomendasi: Grup Diagram Batang</span>
+            <h4 class="text-base font-extrabold text-slate-800">Mengapa Grup Diagram Batang?</h4>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Karena kita membandingkan <strong>dua kelompok kategori berbeda</strong> (Laki-laki dan Perempuan) secara berdampingan pada setiap kelompok tahun (2024, 2025, 2026).
+            </p>
+          </div>
+          <div class="lg:col-span-7 bg-white p-4 rounded-xl border border-slate-200">
+            <svg viewBox="0 0 360 155" class="w-full h-auto">
+              <line x1="35" y1="125" x2="340" y2="125" stroke="#94a3b8" stroke-width="1.5"/>
+              <!-- 2024: L=20, P=50 -->
+              <rect x="60" y="95" width="24" height="30" fill="#0284c7" rx="3"/>
+              <rect x="88" y="50" width="24" height="75" fill="#f59e0b" rx="3"/>
+              <text x="86" y="140" font-size="10" text-anchor="middle" fill="#475569">2024</text>
+              <!-- 2025: L=33, P=52 -->
+              <rect x="160" y="75" width="24" height="50" fill="#0284c7" rx="3"/>
+              <rect x="188" y="47" width="24" height="78" fill="#f59e0b" rx="3"/>
+              <text x="186" y="140" font-size="10" text-anchor="middle" fill="#475569">2025</text>
+              <!-- 2026: L=45, P=55 -->
+              <rect x="260" y="57" width="24" height="68" fill="#0284c7" rx="3"/>
+              <rect x="288" y="42" width="24" height="83" fill="#f59e0b" rx="3"/>
+              <text x="286" y="140" font-size="10" text-anchor="middle" fill="#475569">2026</text>
+              <!-- Legend -->
+              <rect x="225" y="10" width="10" height="10" fill="#0284c7"/><text x="240" y="19" font-size="10" fill="#334155">Laki-laki</text>
+              <rect x="290" y="10" width="10" height="10" fill="#f59e0b"/><text x="305" y="19" font-size="10" fill="#334155">Perempuan</text>
+            </svg>
+          </div>
+        `;
+      }
+    }
+
+    // --- LAB 4: SCRATCH & BLOCKLY ---
+    let spriteX = 0;
+    let isGardenBackdrop = false;
+
+    function runScratchMove() {
+      const sprite = document.getElementById('scratchSprite');
+      const speech = document.getElementById('spriteSpeech');
+      const log = document.getElementById('scratchLog');
+      speech.classList.add('hidden');
+      spriteX = 0;
+      sprite.style.transform = `translate(0px, 0px)`;
+      log.innerHTML = `Menjalankan <code>ulangi 3 kali [ maju 20 langkah ]</code>...`;
+
+      let step = 0;
+      const timer = setInterval(() => {
+        step++;
+        spriteX += 45;
+        sprite.style.transform = `translate(${spriteX}px, 0px)`;
+        if (step >= 3) {
+          clearInterval(timer);
+          speech.classList.remove('hidden');
+          log.innerHTML = `Selesai! Sprite maju <strong>3 × 20 = 60 langkah</strong> lalu mengucapkan <strong>"Sampai tujuan!"</strong> (Indikator #34).`;
+        }
+      }, 350);
+    }
+
+    function runScratchJump() {
+      const sprite = document.getElementById('scratchSprite');
+      const log = document.getElementById('scratchLog');
+      sprite.style.transform = `translate(${spriteX}px, -55px)`;
+      log.innerHTML = `Event Spasi: <code>ubah y oleh 50</code> (naik ke atas)...`;
+      setTimeout(() => {
+        sprite.style.transform = `translate(${spriteX}px, 0px)`;
+        log.innerHTML = `Setelah <code>tunggu 0,3 detik</code>, blok <code>ubah y oleh -50</code> menurunkan sprite kembali sehingga tampak <strong>melompat</strong> (Indikator #39).`;
+      }, 350);
+    }
+
+    function toggleScratchBackdrop() {
+      const stage = document.getElementById('scratchStage');
+      const decor = document.getElementById('stageDecor');
+      const label = document.getElementById('stageThemeLabel');
+      const log = document.getElementById('scratchLog');
+      isGardenBackdrop = !isGardenBackdrop;
+
+      if (isGardenBackdrop) {
+        stage.className = "relative w-full h-52 rounded-2xl border-2 border-emerald-400 overflow-hidden bg-gradient-to-b from-sky-200 to-emerald-200 transition-all duration-300 flex items-end p-4";
+        decor.innerHTML = `<i class="fa-solid fa-tree text-emerald-700 mr-1"></i> Latar Kebun Sekolah`;
+        label.textContent = "Latar: Kebun";
+        log.innerHTML = `Blok <code>ganti latar menjadi [kebun]</code> mengubah tampilan panggung (Stage) (Indikator #38).`;
+      } else {
+        stage.className = "relative w-full h-52 rounded-2xl border-2 border-slate-300 overflow-hidden bg-gradient-to-b from-sky-100 to-amber-50 transition-all duration-300 flex items-end p-4";
+        decor.innerHTML = `<i class="fa-solid fa-chalkboard mr-1"></i> Ruang Kelas IX`;
+        label.textContent = "Latar: Kelas";
+        log.innerHTML = `Latar panggung (Stage) dikembalikan ke <strong>[kelas]</strong>.`;
+      }
+    }
+
+    function resetScratchStage() {
+      spriteX = 0;
+      document.getElementById('scratchSprite').style.transform = `translate(0px, 0px)`;
+      document.getElementById('spriteSpeech').classList.add('hidden');
+      document.getElementById('scratchLog').innerHTML = `Posisi sprite direset ke titik awal.`;
+    }
+
+    function runBlocklyTrace() {
+      const step = parseInt(document.getElementById('blocklyStepInput').value, 10);
+      const finalVal = 0 + (3 * step);
+      const passed = finalVal > 20;
+      document.getElementById('blocklyTraceOutput').innerHTML = `
+        <p class="font-bold text-slate-800">Hasil Penelusuran (Tracing):</p>
+        <p class="text-slate-600">Nilai akhir variabel <code>nilai</code> = <code>0 + (3 × ${step}) = <strong>${finalVal}</strong></code></p>
+        <p class="text-slate-600">Uji kondisi <code>${finalVal} &gt; 20</code> bernilai <strong class="${passed ? 'text-emerald-700' : 'text-amber-700'}">${passed ? 'BENAR (True)' : 'SALAH (False)'}</strong></p>
+        <p class="pt-1 font-extrabold text-teal-900">Keluaran Tercetak: <span class="px-2 py-0.5 rounded ${passed ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}">"${passed ? 'Lulus' : 'Ulangi'}"</span></p>
+      `;
+    }
+
+    // =========================================================================
+    // 7. RENDER TAB 3: KUIS LATIHAN PERSIAPAN (10 SOAL)
+    // =========================================================================
+    function selectQuizOption(qId, optIdx) {
+      quizAnswers[qId] = optIdx;
+      saveState();
+      renderQuiz();
+    }
+
+    function resetQuiz() {
+      quizAnswers = {};
+      saveState();
+      renderQuiz();
+    }
+
+    function renderQuiz() {
+      const container = document.getElementById('quizContainer');
+      const letters = ['A', 'B', 'C', 'D'];
+      let correctCount = 0;
+      let answeredCount = 0;
+      let weakTopics = [];
+
+      let html = '';
+      QUIZ_QUESTIONS.forEach((q, idx) => {
+        const userAns = quizAnswers[q.id];
+        const isAnswered = userAns !== undefined;
+        const isCorrect = isAnswered && userAns === q.answer;
+
+        if (isAnswered) {
+          answeredCount++;
+          if (isCorrect) correctCount++;
+          else {
+            const tObj = TOPICS.find(t => t.id === q.topicId);
+            if (tObj) weakTopics.push(`${tObj.title} (Indikator ${q.relatedNo})`);
+          }
+        }
+
+        html += `
+          <div class="bg-white rounded-2xl p-5 shadow-xs border ${isAnswered ? (isCorrect ? 'border-emerald-400' : 'border-rose-400') : 'border-slate-200'} space-y-3">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <span class="px-3 py-1 rounded-lg bg-sky-900 text-white text-xs font-extrabold">Latihan ${idx + 1} / 10</span>
+              <span class="text-xs font-bold text-teal-700 bg-teal-50 px-2.5 py-1 rounded-lg border border-teal-200">Rujukan Kisi-Kisi: Indikator ${q.relatedNo}</span>
+            </div>
+            <p class="text-sm sm:text-base font-semibold text-slate-800 leading-relaxed">${q.question}</p>
+            <div class="grid grid-cols-1 gap-2 pt-1">
+              ${q.options.map((opt, oIdx) => {
+                let btnStyle = "border-slate-200 bg-slate-50 hover:bg-sky-50 hover:border-sky-300 text-slate-800";
+                let badgeStyle = "bg-white text-slate-700 border-slate-300";
+                if (isAnswered) {
+                  if (oIdx === q.answer) {
+                    btnStyle = "border-emerald-500 bg-emerald-50 text-emerald-950 font-bold";
+                    badgeStyle = "bg-emerald-600 text-white border-emerald-600";
+                  } else if (oIdx === userAns && userAns !== q.answer) {
+                    btnStyle = "border-rose-500 bg-rose-50 text-rose-950 font-semibold";
+                    badgeStyle = "bg-rose-600 text-white border-rose-600";
+                  } else {
+                    btnStyle = "border-slate-200 bg-slate-50/60 text-slate-400";
+                  }
+                }
+                return `
+                  <button onclick="selectQuizOption(${q.id}, ${oIdx})" class="w-full text-left p-3 rounded-xl border-2 transition flex items-start gap-3 text-xs sm:text-sm ${btnStyle}">
+                    <span class="w-6 h-6 rounded-lg border flex items-center justify-center font-extrabold text-xs shrink-0 ${badgeStyle}">${letters[oIdx]}</span>
+                    <span class="pt-0.5">${opt}</span>
+                  </button>
+                `;
+              }).join('')}
+            </div>
+
+            ${isAnswered ? `
+              <div class="mt-3 p-3.5 rounded-xl text-xs sm:text-sm ${isCorrect ? 'bg-emerald-100/80 text-emerald-950 border border-emerald-300' : 'bg-rose-100/80 text-rose-950 border border-rose-300'}">
+                <p class="font-extrabold flex items-center gap-1.5">
+                  <i class="fa-solid ${isCorrect ? 'fa-circle-check text-emerald-700' : 'fa-circle-xmark text-rose-700'}"></i>
+                  ${isCorrect ? 'Jawaban Kamu Benar!' : `Kurang Tepat. Kunci Jawaban: ${letters[q.answer]}`}
+                </p>
+                <p class="mt-1 leading-relaxed">${q.explanation}</p>
+              </div>
+            ` : ''}
+          </div>
+        `;
+      });
+
+      container.innerHTML = html;
+      const score = correctCount * 10;
+      document.getElementById('quizScoreDisplay').textContent = `${score} / 100`;
+
+      const summaryBox = document.getElementById('quizSummaryBox');
+      if (answeredCount === QUIZ_QUESTIONS.length) {
+        summaryBox.classList.remove('hidden');
+        if (weakTopics.length === 0) {
+          summaryBox.className = "bg-emerald-50 border-2 border-emerald-500 rounded-2xl p-5 space-y-1 text-emerald-950";
+          summaryBox.innerHTML = `
+            <h3 class="font-extrabold text-base flex items-center gap-2"><i class="fa-solid fa-trophy text-amber-500"></i> Selamat! Skor Latihan Kamu Sempurna (100/100)!</h3>
+            <p class="text-xs sm:text-sm">Kamu sudah menguasai seluruh 10 topik kisi-kisi PSAS Informatika Kelas IX dengan sangat baik.</p>
+          `;
+        } else {
+          summaryBox.className = "bg-amber-50 border-2 border-amber-400 rounded-2xl p-5 space-y-2 text-amber-950";
+          summaryBox.innerHTML = `
+            <h3 class="font-extrabold text-base flex items-center gap-2"><i class="fa-solid fa-clipboard-check text-amber-600"></i> Rekap Hasil Latihan (Skor: ${score}/100)</h3>
+            <p class="text-xs sm:text-sm">Topik yang sebaiknya kamu pelajari kembali di Tab <strong>Peta Kisi-Kisi</strong>:</p>
+            <ul class="list-disc list-inside text-xs sm:text-sm font-semibold space-y-0.5">
+              ${weakTopics.map(t => `<li>${t}</li>`).join('')}
+            </ul>
+          `;
+        }
+      } else {
+        summaryBox.classList.add('hidden');
+      }
+    }
+
+    // =========================================================================
+    // 8. MODAL RESET
+    // =========================================================================
+    function openResetModal() {
+      document.getElementById('resetModal').classList.remove('hidden');
+    }
+    function closeResetModal() {
+      document.getElementById('resetModal').classList.add('hidden');
+    }
+    function confirmResetProgress() {
+      masteredSet.clear();
+      quizAnswers = {};
+      saveState();
+      renderIndicators();
+      renderQuiz();
+      closeResetModal();
+    }
+
+    // =========================================================================
+    // 9. INISIALISASI SAAT HALAMAN DIMUAT
+    // =========================================================================
+    window.addEventListener('DOMContentLoaded', () => {
+      updateProgressUI();
+      renderIndicators();
+      renderXorBoards();
+      selectChartCase('line');
+      runBlocklyTrace();
+      renderQuiz();
+    });
+  </script>
+</body>
+</html>
